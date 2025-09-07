@@ -1,0 +1,16 @@
+[project]
+name = "train-deploy-mnist-cnn"
+version = "0.1.0"
+description = "To train and deploy an Mnist model"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "albumentationsx>=2.0.10",
+    "pandas>=2.3.2",
+    "pillow>=11.3.0",
+    "torch>=2.8.0",
+    "torch-summary>=1.4.5",
+    "torchaudio>=2.8.0",
+    "torchvision>=0.23.0",
+    "tqdm>=4.67.1",
+]
