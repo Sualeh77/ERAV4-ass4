@@ -30,7 +30,7 @@ class MNISTGradioPredictor:
         """Load the trained model"""
         try:
             self.model = MnistFullyCNN()
-            state_dict = torch.load(model_path, map_location=self.device)
+            state_dict = torch.load(model_path, map_location=self.device, weights_only=True)
             self.model.load_state_dict(state_dict)
             self.model.to(self.device)
             self.model.eval()
@@ -46,6 +46,9 @@ class MNISTGradioPredictor:
             return None
         
         print(f"Processing sketchpad with keys: {list(sketchpad_data.keys())}")
+        
+        if isinstance(sketchpad_data, dict) and isinstance(sketchpad_data.get('composite'), np.ndarray):
+            return Image.fromarray(sketchpad_data['composite'].astype(np.uint8))
         
         # Method 1: Use composite if available (this should have the final result)
         if 'composite' in sketchpad_data and sketchpad_data['composite'] is not None:
@@ -361,7 +364,10 @@ with gr.Blocks(css=custom_css, title="MNIST Digit Classifier", theme=gr.themes.S
             
             with gr.Tab("Draw Digit"):
                 draw_image = gr.Sketchpad(
-                    label="Draw a Digit"
+                    label="Draw a Digit",
+                    type="numpy",          # returns arrays, not file paths
+                    image_mode="L",        # grayscale (MNIST)
+                    crop_size=(280, 280),  # good canvas size
                 )
                 draw_btn = gr.Button("🔍 Predict from Drawing", variant="primary", size="lg")
             
@@ -450,7 +456,7 @@ if __name__ == "__main__":
     
     app.launch(
         server_name="0.0.0.0",  # Allow external access
-        server_port=7860,       # Default Gradio port
+        server_port=8080,       # Default Gradio port
         share=False,            # Set to True for public link
         # debug=True,             # Enable debug mode
         show_error=True,        # Show errors in interface
