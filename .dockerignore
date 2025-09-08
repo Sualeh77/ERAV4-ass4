@@ -1,0 +1,39 @@
+# .dockerignore
+
+# Ignore everything first
+*
+
+# Then include only what we need
+!pyproject.toml
+!uv.lock
+!config.py
+!model.py
+!gradio_app.py
+!models/
+
+# Ignore common unnecessary files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+.pytest_cache/
+.coverage
+.env
+.venv/
+venv/
+*.egg-info/
+.git/
+.gitignore
+README.md
+tmp.ipynb
+data/
+mnist_images/
+simple_gradio_app.py
+pred.py
+train.py
+main.py
+dataset.py
+utils.py
+preprocessing_mnist_data.py
