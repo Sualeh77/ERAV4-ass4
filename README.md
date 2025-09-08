@@ -1,5 +1,8 @@
 # 🔢 MNIST Digit Classifier with AWS Lambda Deployment
 
+## Try inference on AWS lambda deployed app with the link :
+[https://nxau4j3swmtjujwvnqjgep5fli0dcpad.lambda-url.ap-south-1.on.aws/](https://nxau4j3swmtjujwvnqjgep5fli0dcpad.lambda-url.ap-south-1.on.aws/)
+
 A fully convolutional neural network for MNIST digit classification with under 25k parameters, deployed as a serverless web application using AWS Lambda and Gradio.
 
 ## 🎯 Project Overview
