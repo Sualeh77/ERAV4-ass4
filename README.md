@@ -4,14 +4,14 @@ A fully convolutional neural network for MNIST digit classification with under 2
 
 ## 🎯 Project Overview
 
-This project implements a lightweight CNN model that achieves >99% accuracy on MNIST digit classification with less than 25,000 parameters. The model is deployed as a serverless web application using AWS Lambda, providing a cost-effective and scalable solution for digit recognition.
+This project implements a lightweight CNN model that achieves >97% accuracy on MNIST digit classification with less than 25,000 parameters. The model is deployed as a serverless web application using AWS Lambda, providing a cost-effective and scalable solution for digit recognition.
 
 ## 🏗️ Architecture
 
 ### Model Architecture
 - **Type**: Fully Convolutional Neural Network (CNN)
 - **Parameters**: ~18k parameters (under 25k limit)
-- **Accuracy**: >99% on MNIST test set
+- **Accuracy**: >97% on MNIST test set
 - **Framework**: PyTorch
 - **Input**: 28x28 grayscale images
 - **Output**: 10-class classification (digits 0-9)
@@ -65,7 +65,7 @@ You can copy this content and paste it into your README.md file. The documentati
 
 ### Model Features
 - **Lightweight**: Under 25k parameters for fast inference
-- **High Accuracy**: >99% accuracy on MNIST test set
+- **High Accuracy**: >97% accuracy on MNIST test set
 - **CPU Optimized**: Runs efficiently on Lambda's CPU-only environment
 - **Preprocessing**: Automatic image normalization and contrast adjustment
 
@@ -170,7 +170,7 @@ environment={
 - **Data Augmentation**: Random rotation, normalization
 
 ### Model Performance
-- **Test Accuracy**: >99%
+- **Test Accuracy**: >97%
 - **Parameters**: ~18,000
 - **Inference Time**: <100ms on Lambda
 - **Model Size**: <1MB
@@ -229,16 +229,15 @@ The Lambda function URL accepts HTTP requests and can be integrated into other a
 ## 📊 Performance Metrics
 
 ### Model Performance
-- **Accuracy**: >99% on test set
-- **Precision**: >99% average across all digits
-- **Recall**: >99% average across all digits
-- **F1-Score**: >99% average across all digits
+- **Accuracy**: >97% on test set
+- **Precision**: >97% average across all digits
 
 ### Lambda Performance
 - **Cold Start**: ~9 seconds (first request)
 - **Warm Requests**: 50-200ms
 - **Memory Usage**: ~550MB peak
 - **Cost**: Pay-per-request pricing
+- **Consistency Issue**: Multiple inferences behaves weird, May because of AWS lambda without any storage is not able to handle files properly: (Suggestions to fix this are welcome!)
 
 ## 🛡️ Security & Best Practices
 
