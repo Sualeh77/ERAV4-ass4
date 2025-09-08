@@ -1,0 +1,24 @@
+# requirements.txt for Gradio MNIST Classifier
+
+--index-url https://download.pytorch.org/whl/cpu
+--extra-index-url https://pypi.org/simple
+
+# Build tools (needed for some packages)
+# setuptools>=65.0.0
+# wheel
+
+# Core ML libraries - CPU only versions
+torch==2.5.1
+torchvision==0.20.1
+
+# Data handling (updated to version with pre-built wheels)
+numpy>=1.26.0
+
+# Image processing
+pillow==11.3.0
+
+# Web interface
+gradio==5.44.1
+
+# Data visualization
+matplotlib>=3.8.0

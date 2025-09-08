@@ -9,12 +9,10 @@ COPY --from=public.ecr.aws/awsguru/aws-lambda-adapter:0.8.4 /lambda-adapter /opt
 # Set working directory
 WORKDIR /app
 
-# Install uv
-RUN pip install uv
-
-# Copy only the necessary files for the app
-COPY pyproject.toml ./
-COPY uv.lock ./
+# Copy requirements and install dependencies
+COPY requirements.txt ./
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
 
 # Copy the required Python modules
 COPY config.py ./
@@ -24,9 +22,6 @@ COPY gradio_app.py ./
 # Copy the trained model
 COPY models/ ./models/
 
-# Install dependencies using uv
-RUN uv sync --frozen
-
 # Expose the port Gradio will run on
 EXPOSE 7860
 
@@ -35,5 +30,5 @@ ENV PYTHONPATH=/app
 ENV GRADIO_SERVER_NAME=0.0.0.0
 ENV GRADIO_SERVER_PORT=7860
 
-# Command to run the application
-CMD ["uv", "run", "python", "gradio_app.py"]
+# Command to run the application - Use python directly, not uv
+CMD ["python", "gradio_app.py"]

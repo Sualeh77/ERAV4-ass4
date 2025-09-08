@@ -8,6 +8,7 @@ wheels/
 data/
 models/
 mnist_images/
+cdk.out/
 
 # Virtual environments
 .venv

@@ -7,7 +7,8 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).parent
 print(f"Project root: {PROJECT_ROOT}")
 
-device = torch.accelerator.current_accelerator().type if torch.accelerator.is_available() else "cpu"
+# device = torch.accelerator.current_accelerator().type if torch.accelerator.is_available() else "cpu"
+device = "cpu"
 
 # Use relative paths from project root
 train_labels_csv_path = PROJECT_ROOT / "mnist_images" / "train_labels.csv"

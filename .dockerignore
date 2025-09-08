@@ -10,6 +10,7 @@
 !model.py
 !gradio_app.py
 !models/
+!requirements.txt
 
 # Ignore common unnecessary files
 __pycache__/
