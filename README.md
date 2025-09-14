@@ -258,10 +258,6 @@ The Lambda function URL accepts HTTP requests and can be integrated into other a
 - [ ] Enhanced monitoring and logging
 - [ ] Multi-region deployment
 
-## 📝 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
 ## 🤝 Contributing
 
 1. Fork the repository
@@ -272,7 +268,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## 📞 Support
 
-For questions or issues, please open an issue in the repository or contact the development team.
+For questions or issues, please open an issue in the repository.
 
 ---
 
