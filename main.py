@@ -5,7 +5,7 @@ from torch.utils.data import DataLoader
 from model import MnistFullyCNN
 import torch
 from torch import nn
-from train import trainer
+from train import trainer, reset_training_history
 from utils import show_model_summary
 from config import input_size
 
@@ -21,9 +21,27 @@ def main(epochs:int, lr:float, batch_size:int):
     show_model_summary(model, input_size)
 
     loss_fn = nn.CrossEntropyLoss()
-    optim = torch.optim.Adam(model.parameters(), lr=lr)
+    optimizer = torch.optim.Adam(model.parameters(), lr=lr)
+    scheduler = None
 
-    trainer(epochs, train_loader, test_loader, model, loss_fn, optim)
+    # Reset history for new training
+    reset_training_history()
+
+    # Train with evaluation every 5 epochs
+    metrics, exp_dir = trainer(
+        epochs=epochs,
+        train_loader=train_loader,
+        test_loader=test_loader,
+        model=model,
+        loss_fn=loss_fn,
+        optimizer=optimizer,
+        scheduler=scheduler,  # Optional
+        evaluate_every=10,      # Show predictions every 5 epochs
+        experiment_name="mnist_fully_cnn"
+    )
+
+    # Access training history
+    print(f"Final test accuracy: {metrics['best_accuracy']:.2f}%")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Train and deploy MNIST CNN")

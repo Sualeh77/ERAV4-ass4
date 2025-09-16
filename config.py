@@ -18,6 +18,7 @@ test_img_dir = PROJECT_ROOT / "mnist_images"
 input_size = (1, 28, 28)
 
 model_path = PROJECT_ROOT / "models" / "mnist_fully_cnn.pth"
+logs_dir = PROJECT_ROOT / "logs"
 
 train_transforms = transforms.Compose([
     # transforms.RandomApply([transforms.CenterCrop(22), ], p=0.1),
