@@ -11,6 +11,9 @@
 torch==2.5.1
 torchvision==0.20.1
 
+# Metrics library
+torchmetrics>=1.0.0
+
 # Data handling (updated to version with pre-built wheels)
 numpy>=1.26.0
 

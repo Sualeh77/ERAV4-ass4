@@ -12,6 +12,7 @@ from pathlib import Path
 import torch.nn.functional as F
 from vizualize import plot_training_history
 import time
+from metrics_tracker import MetricsTracker
 
 # Global lists to track training history
 train_losses = []
@@ -27,8 +28,10 @@ def train(dataloader: DataLoader, model: nn.Module, loss_fn: nn.Module,
     model.train()
 
     train_loss = 0
-    correct = 0
     processed = 0
+
+    # Initialize metrics tracker
+    metrics_tracker = MetricsTracker(num_classes=10, device=device)
 
     # Enhanced progress bar with more info
     pbar = tqdm(dataloader, desc=f'Epoch {epoch+1} [Train]')
@@ -49,17 +52,18 @@ def train(dataloader: DataLoader, model: nn.Module, loss_fn: nn.Module,
 
          # Update metrics
         train_loss += loss.item()
-        correct += GetCorrectPredCount(pred, label)
         processed += len(image)
 
-        # Update progress bar with current metrics
-        current_accuracy = 100. * correct / processed
+        # Update accuracy metric
+        metrics_tracker.update(pred, label)
+        current_metrics = metrics_tracker.compute()
         avg_loss = train_loss / (batch_idx + 1)
-        
+
+        # Update progress bar with current metrics
         pbar.set_postfix({
             'Loss': f'{loss.item():.4f}',
             'Avg_Loss': f'{avg_loss:.4f}',
-            'Accuracy': f'{current_accuracy:.2f}%',
+            'Accuracy': f'{current_metrics["accuracy"]:.2f}%',
             'LR': f'{optimizer.param_groups[0]["lr"]:.6f}'
         })
 
@@ -69,7 +73,8 @@ def train(dataloader: DataLoader, model: nn.Module, loss_fn: nn.Module,
         
     # Calculate final epoch metrics
     final_loss = train_loss / len(dataloader)
-    final_accuracy = 100. * correct / processed
+    final_metrics = metrics_tracker.compute()
+    final_accuracy = final_metrics["accuracy"]
 
     # Store for plotting
     train_losses.append(final_loss)
@@ -79,8 +84,14 @@ def train(dataloader: DataLoader, model: nn.Module, loss_fn: nn.Module,
     if logger:
         logger.info(f"📈 Epoch {epoch+1} Training Results:")
         logger.info(f"   Loss: {final_loss:.4f}")
-        logger.info(f"   Accuracy: {final_accuracy:.2f}% ({correct}/{processed})")
+        logger.info(f"   Accuracy: {final_accuracy:.2f}% ({processed} samples)")
+        logger.info(f"   Precision: {final_metrics['precision']:.2f}%")
+        logger.info(f"   Recall: {final_metrics['recall']:.2f}%")
+        logger.info(f"   F1-Score: {final_metrics['f1_score']:.2f}%")
         logger.info(f"   LR: {optimizer.param_groups[0]['lr']:.6f}")
+
+    # Reset metric for next epoch
+    metrics_tracker.reset()
 
     return final_loss, final_accuracy
 
@@ -91,8 +102,10 @@ def test(dataloader: DataLoader, model: nn.Module, loss_fn: nn.Module, epoch: in
     model.eval()
 
     test_loss = 0
-    correct = 0
     processed = 0 
+
+    # Initialize metrics tracker
+    metrics_tracker = MetricsTracker(num_classes=10, device=device)
 
     # Progress bar for test
     pbar = tqdm(dataloader, desc=f'Epoch {epoch+1} [Test]')
@@ -103,24 +116,22 @@ def test(dataloader: DataLoader, model: nn.Module, loss_fn: nn.Module, epoch: in
 
             pred = model(image)
             test_loss += loss_fn(pred, label).item()
-
-            # Get predictions
-            pred_labels = pred.argmax(dim=1, keepdim=True)
-            correct += pred_labels.eq(label.view_as(pred_labels)).sum().item()
             processed += len(image)
-            
-            # Update progress bar
-            current_accuracy = 100. * correct / processed
+
+            # Update accuracy metric
+            metrics_tracker.update(pred, label)
+            current_metrics = metrics_tracker.compute()
             avg_loss = test_loss / (batch_idx + 1)
 
             pbar.set_postfix({
                 'Loss': f'{avg_loss:.4f}',
-                'Accuracy': f'{current_accuracy:.2f}%'
+                'Accuracy': f'{current_metrics["accuracy"]:.2f}%'
             })
     
     # Calculate final metrics
     final_loss = test_loss / len(dataloader)
-    final_accuracy = 100. * correct / processed
+    final_metrics = metrics_tracker.compute()
+    final_accuracy = final_metrics["accuracy"]
 
     # Store for plotting
     test_losses.append(final_loss)
@@ -130,8 +141,14 @@ def test(dataloader: DataLoader, model: nn.Module, loss_fn: nn.Module, epoch: in
     if logger:
         logger.info(f"📊 Epoch {epoch+1} Test Results:")
         logger.info(f"   Loss: {final_loss:.4f}")
-        logger.info(f"   Accuracy: {final_accuracy:.2f}% ({correct}/{processed})")
+        logger.info(f"   Accuracy: {final_accuracy:.2f}% ({processed} samples)")
+        logger.info(f"   Precision: {final_metrics['precision']:.2f}%")
+        logger.info(f"   Recall: {final_metrics['recall']:.2f}%")
+        logger.info(f"   F1-Score: {final_metrics['f1_score']:.2f}%")
     
+    # Reset metric for next epoch
+    metrics_tracker.reset()
+
     return final_loss, final_accuracy
 
 def evaluate_model(model: nn.Module, test_loader: DataLoader, epoch: int,
