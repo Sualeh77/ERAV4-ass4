@@ -8,6 +8,7 @@ dependencies = [
     "albumentationsx>=2.0.10",
     "aws-cdk-lib>=2.214.0",
     "gradio>=5.44.1",
+    "lightning>=2.5.5",
     "matplotlib>=3.10.6",
     "pandas>=2.3.2",
     "pillow>=11.3.0",

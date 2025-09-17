@@ -6,10 +6,10 @@ from model import MnistFullyCNN
 import torch
 from torch import nn
 from train import trainer, reset_training_history
-from utils import show_model_summary
 from config import input_size
+from utils import get_relative_path
 
-def main(epochs:int, lr:float, batch_size:int):
+def main(epochs:int, lr:float, batch_size:int, experiment_name:str):
     train_dataset = CustomMnistDataset(train_labels_csv_path, train_img_dir, train_transforms)
     test_dataset = CustomMnistDataset(test_labels_csv_path, test_img_dir, test_transforms)
 
@@ -18,7 +18,6 @@ def main(epochs:int, lr:float, batch_size:int):
 
     model = MnistFullyCNN()
     model = model.to(device)
-    show_model_summary(model, input_size)
 
     loss_fn = nn.CrossEntropyLoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=lr)
@@ -37,16 +36,17 @@ def main(epochs:int, lr:float, batch_size:int):
         optimizer=optimizer,
         scheduler=scheduler,  # Optional
         evaluate_every=10,      # Show predictions every 5 epochs
-        experiment_name="mnist_fully_cnn"
+        experiment_name=experiment_name
     )
 
     # Access training history
-    print(f"Final test accuracy: {metrics['best_accuracy']:.2f}%")
+    print(f"Final test accuracy: {metrics['best_accuracy']:.2f}%, Experiment logs directory: {get_relative_path(exp_dir)}")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Train and deploy MNIST CNN")
     parser.add_argument("--epochs", type=int, default=1)
     parser.add_argument("--lr", type=float, default=1e-3)
     parser.add_argument("--batch_size", type=int, default=64)
+    parser.add_argument("--experiment_name", type=str, default="mnist_fully_cnn")
     args = parser.parse_args()
-    main(args.epochs, args.lr, args.batch_size)
+    main(args.epochs, args.lr, args.batch_size, args.experiment_name)

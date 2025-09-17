@@ -1,7 +1,7 @@
 from config import device, model_path
 import torch
 from tqdm import tqdm
-from utils import GetCorrectPredCount, setup_logging, log_model_info, log_dataset_info, log_training_config, save_metrics_to_json, logger, experiment_start_time
+from utils import GetCorrectPredCount, setup_logging, log_model_info, log_dataset_info, log_training_config, save_metrics_to_json, get_relative_path
 from torch import nn
 import torch
 from torch.utils.data import DataLoader
@@ -20,7 +20,7 @@ test_losses = []
 test_accuracies = []
 
 def train(dataloader: DataLoader, model: nn.Module, loss_fn: nn.Module,
-        optimizer: torch.optim.Optimizer, epoch: int) -> Tuple[float, float]:
+        optimizer: torch.optim.Optimizer, epoch: int, logger) -> Tuple[float, float]:
     """
     training function
     """
@@ -84,7 +84,7 @@ def train(dataloader: DataLoader, model: nn.Module, loss_fn: nn.Module,
 
     return final_loss, final_accuracy
 
-def test(dataloader: DataLoader, model: nn.Module, loss_fn: nn.Module, epoch: int) -> Tuple[float, float]:
+def test(dataloader: DataLoader, model: nn.Module, loss_fn: nn.Module, epoch: int, logger) -> Tuple[float, float]:
     """
     test function
     """
@@ -132,11 +132,10 @@ def test(dataloader: DataLoader, model: nn.Module, loss_fn: nn.Module, epoch: in
         logger.info(f"   Loss: {final_loss:.4f}")
         logger.info(f"   Accuracy: {final_accuracy:.2f}% ({correct}/{processed})")
     
-    print(f'\n📊 Test Results: Average Loss: {final_loss:.4f}, Accuracy: {final_accuracy:.2f}% ({correct}/{processed})\n')
     return final_loss, final_accuracy
 
 def evaluate_model(model: nn.Module, test_loader: DataLoader, epoch: int,
-                experiment_dir: Path, num_samples: int = 5):
+                experiment_dir: Path, logger, num_samples: int = 5):
     """
     Evaluate model and show sample predictions with images
     """
@@ -197,7 +196,7 @@ def evaluate_model(model: nn.Module, test_loader: DataLoader, epoch: int,
     if logger:
         logger.info(f"🔍 Epoch {epoch+1} Evaluation:")
         logger.info(f"   Sample accuracy: {correct_predictions}/{num_samples} ({100*correct_predictions/num_samples:.1f}%)")
-        logger.info(f"   Predictions saved to: {pred_image_path}")
+        logger.info(f"   Predictions saved to: {get_relative_path(pred_image_path)}")
     
     # Print detailed predictions
     print(f"🔍 Detailed Predictions (Epoch {epoch+1}):")
@@ -207,7 +206,6 @@ def evaluate_model(model: nn.Module, test_loader: DataLoader, epoch: int,
         pred_label = predicted[i].item()
         confidence = probabilities[i][pred_label].item()
         status = "✅ Correct" if true_label == pred_label else "❌ Wrong"
-        print(f"Sample {i+1}: True={true_label}, Pred={pred_label}, Confidence={confidence:.3f} {status}")
 
         # Log individual predictions
         if logger:
@@ -221,23 +219,21 @@ def trainer(epochs: int, train_loader: DataLoader, test_loader: DataLoader,
     Trainer function
     """
     # Setup logging
-    experiment_dir = setup_logging(experiment_name)
+    experiment_dir, experiment_start_time, logger = setup_logging(experiment_name)
 
     # Log all configuration info
-    log_model_info(model)
-    log_dataset_info(train_loader, test_loader)
-    log_training_config(optimizer, loss_fn, scheduler)
+    log_model_info(logger, model)
+    log_dataset_info(logger, train_loader, test_loader)
+    log_training_config(logger, optimizer, loss_fn, scheduler)
 
     logger.info(f"🎯 Training Configuration:")
     logger.info(f"   Epochs: {epochs}")
     logger.info(f"   Evaluate every: {evaluate_every} epochs")
     logger.info("=" * 80)
 
-    print("🚀 Starting Training Process...")
-    print(f"📊 Dataset Info: Train batches: {len(train_loader)}, Test batches: {len(test_loader)}")
-    print(f"🔧 Model Parameters: {sum(p.numel() for p in model.parameters() if p.requires_grad):,}")
-    print(f"⚙️  Device: {device}")
-    print("=" * 80)
+    logger.info("🚀 Starting Training Process...")
+    logger.info(f"⚙️  Device: {device}")
+    logger.info("=" * 80)
 
     best_accuracy = 0.0
     best_epoch = 0
@@ -246,14 +242,13 @@ def trainer(epochs: int, train_loader: DataLoader, test_loader: DataLoader,
         epoch_start_time = time.time()
 
         logger.info(f"🔄 Starting Epoch {epoch+1}/{epochs}")
-        print(f"\n🔄 Epoch {epoch+1}/{epochs}")
-        print("-" * 50)
+        logger.info("-" * 50)
         
          # Training phase
-        train_loss, train_acc = train(train_loader, model, loss_fn, optimizer, epoch)
+        train_loss, train_acc = train(train_loader, model, loss_fn, optimizer, epoch, logger)
 
         # Testing phase
-        test_loss, test_acc = test(test_loader, model, loss_fn, epoch)
+        test_loss, test_acc = test(test_loader, model, loss_fn, epoch, logger)
 
         # Update learning rate scheduler if provided
         if scheduler:
@@ -282,16 +277,10 @@ def trainer(epochs: int, train_loader: DataLoader, test_loader: DataLoader,
         logger.info(f"   Test  - Loss: {test_loss:.4f}, Accuracy: {test_acc:.2f}%")
         logger.info(f"   🏆 Best Test Accuracy: {best_accuracy:.2f}% (Epoch {best_epoch})")
 
-        # Print epoch summary
-        print(f"📈 Epoch {epoch+1} Summary:")
-        print(f"   Train - Loss: {train_loss:.4f}, Accuracy: {train_acc:.2f}%")
-        print(f"   Test  - Loss: {test_loss:.4f}, Accuracy: {test_acc:.2f}%")
-        print(f"   🏆 Best Test Accuracy: {best_accuracy:.2f}% (Epoch {best_epoch})")
-
         # Evaluate model with sample predictions every N epochs
         if (epoch + 1) % evaluate_every == 0 or epoch == epochs - 1:
             print(f"\n🔍 Evaluation at Epoch {epoch+1}:")
-            evaluate_model(model, test_loader, epoch)
+            evaluate_model(model, test_loader, epoch, experiment_dir, logger)
 
     # Training completion
     total_duration = time.time() - experiment_start_time
@@ -301,25 +290,17 @@ def trainer(epochs: int, train_loader: DataLoader, test_loader: DataLoader,
     logger.info(f"🏆 Best Test Accuracy: {best_accuracy:.2f}% achieved at Epoch {best_epoch}")
     logger.info(f"⏱️ Total training time: {total_duration:.2f}s ({total_duration/60:.1f}min)")
 
-    print("\n" + "=" * 80)
-    print("✅ Training Complete!")
-    print(f"🏆 Best Test Accuracy: {best_accuracy:.2f}% achieved at Epoch {best_epoch}")
-
     # Save final model
     torch.save(model.state_dict(), model_path)
-    logger.info(f"💾 Final model saved to: {model_path}")
+    logger.info(f"💾 Final model saved to: {get_relative_path(model_path)}")
 
     # Save best model path for reference
-    logger.info(f"💾 Best model saved to: {best_model_path}")
-
-    print(f"💾 Final model saved to: {model_path}")
-    print(f"💾 Best model saved to: {best_model_path}")
+    logger.info(f"💾 Best model saved to: {get_relative_path(best_model_path)}")
     
     # Save plots to experiment directory
     plot_path = experiment_dir / "training_history.png"
     plot_training_history(train_losses, test_losses, train_accuracies, test_accuracies, save_path=plot_path)
-    logger.info(f"📊 Training plots saved to: {plot_path}")
-    print("\n📊 Generating training plots...")     
+    logger.info(f"📊 Training plots saved to: {get_relative_path(plot_path)}")    
     
     # Prepare final metrics
     final_metrics = {
@@ -336,10 +317,10 @@ def trainer(epochs: int, train_loader: DataLoader, test_loader: DataLoader,
     }
     
     # Save metrics to JSON
-    save_metrics_to_json(experiment_dir, final_metrics)
+    save_metrics_to_json(logger, experiment_dir, final_metrics)
     
     logger.info(f"🎯 Experiment completed successfully!")
-    logger.info(f"📁 All results saved in: {experiment_dir}")
+    logger.info(f"📁 All results saved in: {get_relative_path(experiment_dir)}")
     
     return final_metrics, experiment_dir
 

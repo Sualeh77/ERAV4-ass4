@@ -1,0 +1,95 @@
+2025-09-16 17:29:18 |     INFO | setup_logging:84 | ================================================================================
+2025-09-16 17:29:18 |     INFO | setup_logging:85 | 🚀 Starting experiment: mnist_fully_cnn
+2025-09-16 17:29:18 |     INFO | setup_logging:86 | 📁 Experiment directory: logs/mnist_fully_cnn
+2025-09-16 17:29:18 |     INFO | setup_logging:87 | 💾 Log file: logs/mnist_fully_cnn/training.log
+2025-09-16 17:29:18 |     INFO | setup_logging:88 | ================================================================================
+2025-09-16 17:29:18 |     INFO | log_model_info:98 | 📋 Detailed Model Summary:
+2025-09-16 17:29:18 |     INFO | log_model_info:99 | ------------------------------------------------------------
+2025-09-16 17:29:18 |     INFO | log_model_info:112 |    ==========================================================================================
+2025-09-16 17:29:18 |     INFO | log_model_info:112 |    Layer (type:depth-idx)                   Output Shape              Param #
+2025-09-16 17:29:18 |     INFO | log_model_info:112 |    ==========================================================================================
+2025-09-16 17:29:18 |     INFO | log_model_info:112 |    ├─Sequential: 1-1                        [-1, 16, 14, 14]          --
+2025-09-16 17:29:18 |     INFO | log_model_info:112 |    |    └─Conv2d: 2-1                       [-1, 8, 28, 28]           80
+2025-09-16 17:29:18 |     INFO | log_model_info:112 |    |    └─ReLU: 2-2                         [-1, 8, 28, 28]           --
+2025-09-16 17:29:18 |     INFO | log_model_info:112 |    |    └─BatchNorm2d: 2-3                  [-1, 8, 28, 28]           16
+2025-09-16 17:29:18 |     INFO | log_model_info:112 |    |    └─Conv2d: 2-4                       [-1, 16, 28, 28]          1,168
+2025-09-16 17:29:18 |     INFO | log_model_info:112 |    |    └─ReLU: 2-5                         [-1, 16, 28, 28]          --
+2025-09-16 17:29:18 |     INFO | log_model_info:112 |    |    └─BatchNorm2d: 2-6                  [-1, 16, 28, 28]          32
+2025-09-16 17:29:18 |     INFO | log_model_info:112 |    |    └─Dropout: 2-7                      [-1, 16, 28, 28]          --
+2025-09-16 17:29:18 |     INFO | log_model_info:112 |    |    └─MaxPool2d: 2-8                    [-1, 16, 14, 14]          --
+2025-09-16 17:29:18 |     INFO | log_model_info:112 |    ├─Sequential: 1-2                        [-1, 32, 7, 7]            --
+2025-09-16 17:29:18 |     INFO | log_model_info:112 |    |    └─Conv2d: 2-9                       [-1, 16, 14, 14]          2,320
+2025-09-16 17:29:18 |     INFO | log_model_info:112 |    |    └─ReLU: 2-10                        [-1, 16, 14, 14]          --
+2025-09-16 17:29:18 |     INFO | log_model_info:112 |    |    └─BatchNorm2d: 2-11                 [-1, 16, 14, 14]          32
+2025-09-16 17:29:18 |     INFO | log_model_info:112 |    |    └─Conv2d: 2-12                      [-1, 32, 14, 14]          4,640
+2025-09-16 17:29:18 |     INFO | log_model_info:112 |    |    └─ReLU: 2-13                        [-1, 32, 14, 14]          --
+2025-09-16 17:29:18 |     INFO | log_model_info:112 |    |    └─BatchNorm2d: 2-14                 [-1, 32, 14, 14]          64
+2025-09-16 17:29:18 |     INFO | log_model_info:112 |    |    └─Dropout: 2-15                     [-1, 32, 14, 14]          --
+2025-09-16 17:29:18 |     INFO | log_model_info:112 |    |    └─MaxPool2d: 2-16                   [-1, 32, 7, 7]            --
+2025-09-16 17:29:18 |     INFO | log_model_info:112 |    ├─Sequential: 1-3                        [-1, 16, 7, 7]            --
+2025-09-16 17:29:18 |     INFO | log_model_info:112 |    |    └─Conv2d: 2-17                      [-1, 32, 7, 7]            9,248
+2025-09-16 17:29:18 |     INFO | log_model_info:112 |    |    └─ReLU: 2-18                        [-1, 32, 7, 7]            --
+2025-09-16 17:29:18 |     INFO | log_model_info:112 |    |    └─BatchNorm2d: 2-19                 [-1, 32, 7, 7]            64
+2025-09-16 17:29:18 |     INFO | log_model_info:112 |    |    └─Dropout: 2-20                     [-1, 32, 7, 7]            --
+2025-09-16 17:29:18 |     INFO | log_model_info:112 |    |    └─Conv2d: 2-21                      [-1, 16, 7, 7]            528
+2025-09-16 17:29:18 |     INFO | log_model_info:112 |    ├─Sequential: 1-4                        [-1, 10, 1, 1]            --
+2025-09-16 17:29:18 |     INFO | log_model_info:112 |    |    └─Conv2d: 2-22                      [-1, 10, 7, 7]            170
+2025-09-16 17:29:18 |     INFO | log_model_info:112 |    |    └─AdaptiveAvgPool2d: 2-23           [-1, 10, 1, 1]            --
+2025-09-16 17:29:18 |     INFO | log_model_info:112 |    ==========================================================================================
+2025-09-16 17:29:18 |     INFO | log_model_info:112 |    Total params: 18,362
+2025-09-16 17:29:18 |     INFO | log_model_info:112 |    Trainable params: 18,362
+2025-09-16 17:29:18 |     INFO | log_model_info:112 |    Non-trainable params: 0
+2025-09-16 17:29:18 |     INFO | log_model_info:112 |    Total mult-adds (M): 2.82
+2025-09-16 17:29:18 |     INFO | log_model_info:112 |    ==========================================================================================
+2025-09-16 17:29:18 |     INFO | log_model_info:112 |    Input size (MB): 0.00
+2025-09-16 17:29:18 |     INFO | log_model_info:112 |    Forward/backward pass size (MB): 0.46
+2025-09-16 17:29:18 |     INFO | log_model_info:112 |    Params size (MB): 0.07
+2025-09-16 17:29:18 |     INFO | log_model_info:112 |    Estimated Total Size (MB): 0.54
+2025-09-16 17:29:18 |     INFO | log_model_info:112 |    ==========================================================================================
+2025-09-16 17:29:18 |     INFO | log_model_info:123 | ------------------------------------------------------------
+2025-09-16 17:29:18 |     INFO | log_dataset_info:130 | 📊 Dataset Information:
+2025-09-16 17:29:18 |     INFO | log_dataset_info:131 |    Training batches: 938
+2025-09-16 17:29:18 |     INFO | log_dataset_info:132 |    Test batches: 157
+2025-09-16 17:29:18 |     INFO | log_dataset_info:133 |    Training samples: 60,000
+2025-09-16 17:29:18 |     INFO | log_dataset_info:134 |    Test samples: 10,000
+2025-09-16 17:29:18 |     INFO | log_dataset_info:135 |    Batch size: 64
+2025-09-16 17:29:18 |     INFO | log_training_config:142 | ⚙️ Training Configuration:
+2025-09-16 17:29:18 |     INFO | log_training_config:143 |    Device: mps
+2025-09-16 17:29:18 |     INFO | log_training_config:144 |    Optimizer: Adam
+2025-09-16 17:29:18 |     INFO | log_training_config:145 |    Learning rate: 0.001
+2025-09-16 17:29:18 |     INFO | log_training_config:146 |    Loss function: CrossEntropyLoss
+2025-09-16 17:29:18 |     INFO | trainer:229 | 🎯 Training Configuration:
+2025-09-16 17:29:18 |     INFO | trainer:230 |    Epochs: 1
+2025-09-16 17:29:18 |     INFO | trainer:231 |    Evaluate every: 10 epochs
+2025-09-16 17:29:18 |     INFO | trainer:232 | ================================================================================
+2025-09-16 17:29:18 |     INFO | trainer:234 | 🚀 Starting Training Process...
+2025-09-16 17:29:18 |     INFO | trainer:235 | ⚙️  Device: mps
+2025-09-16 17:29:18 |     INFO | trainer:236 | ================================================================================
+2025-09-16 17:29:18 |     INFO | trainer:244 | 🔄 Starting Epoch 1/1
+2025-09-16 17:29:18 |     INFO | trainer:245 | --------------------------------------------------
+2025-09-16 17:29:48 |     INFO | train:80 | 📈 Epoch 1 Training Results:
+2025-09-16 17:29:48 |     INFO | train:81 |    Loss: 0.3815
+2025-09-16 17:29:48 |     INFO | train:82 |    Accuracy: 89.38% (53629/60000)
+2025-09-16 17:29:48 |     INFO | train:83 |    LR: 0.001000
+2025-09-16 17:29:50 |     INFO | test:131 | 📊 Epoch 1 Test Results:
+2025-09-16 17:29:50 |     INFO | test:132 |    Loss: 0.0848
+2025-09-16 17:29:50 |     INFO | test:133 |    Accuracy: 97.38% (9738/10000)
+2025-09-16 17:29:50 |     INFO | trainer:268 | 🏆 New best model saved! Accuracy: 97.38%
+2025-09-16 17:29:50 |     INFO | trainer:274 | 📈 Epoch 1 Summary:
+2025-09-16 17:29:50 |     INFO | trainer:275 |    Duration: 31.73s
+2025-09-16 17:29:50 |     INFO | trainer:276 |    Train - Loss: 0.3815, Accuracy: 89.38%
+2025-09-16 17:29:50 |     INFO | trainer:277 |    Test  - Loss: 0.0848, Accuracy: 97.38%
+2025-09-16 17:29:50 |     INFO | trainer:278 |    🏆 Best Test Accuracy: 97.38% (Epoch 1)
+2025-09-16 17:29:50 |     INFO | evaluate_model:197 | 🔍 Epoch 1 Evaluation:
+2025-09-16 17:29:50 |     INFO | evaluate_model:198 |    Sample accuracy: 5/5 (100.0%)
+2025-09-16 17:29:50 |     INFO | evaluate_model:199 |    Predictions saved to: logs/mnist_fully_cnn/predictions_epoch_1.png
+2025-09-16 17:29:50 |     INFO | trainer:288 | ================================================================================
+2025-09-16 17:29:50 |     INFO | trainer:289 | ✅ Training Complete!
+2025-09-16 17:29:50 |     INFO | trainer:290 | 🏆 Best Test Accuracy: 97.38% achieved at Epoch 1
+2025-09-16 17:29:50 |     INFO | trainer:291 | ⏱️ Total training time: 32.06s (0.5min)
+2025-09-16 17:29:50 |     INFO | trainer:295 | 💾 Final model saved to: models/mnist_fully_cnn.pth
+2025-09-16 17:29:50 |     INFO | trainer:298 | 💾 Best model saved to: models/mnist_fully_cnn_best.pth
+2025-09-16 17:29:54 |     INFO | trainer:303 | 📊 Training plots saved to: logs/mnist_fully_cnn/training_history.png
+2025-09-16 17:29:54 |     INFO | save_metrics_to_json:175 | 💾 Metrics saved to: logs/mnist_fully_cnn/metrics.json
+2025-09-16 17:29:54 |     INFO | trainer:322 | 🎯 Experiment completed successfully!
+2025-09-16 17:29:54 |     INFO | trainer:323 | 📁 All results saved in: logs/mnist_fully_cnn

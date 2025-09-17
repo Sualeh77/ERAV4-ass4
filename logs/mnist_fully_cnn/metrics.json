@@ -1,0 +1,27 @@
+{
+  "experiment_info": {
+    "timestamp": "2025-09-16T17:29:54.318645",
+    "duration_seconds": 35.62553906440735,
+    "device": "mps"
+  },
+  "metrics": {
+    "train_losses": [
+      0.38154961152879924
+    ],
+    "train_accuracies": [
+      89.38166666666666
+    ],
+    "test_losses": [
+      0.08481104302540374
+    ],
+    "test_accuracies": [
+      97.38
+    ],
+    "best_accuracy": 97.38,
+    "best_epoch": 1,
+    "total_epochs": 1,
+    "total_duration_seconds": 32.062711000442505,
+    "final_train_accuracy": 89.38166666666666,
+    "final_test_accuracy": 97.38
+  }
+}

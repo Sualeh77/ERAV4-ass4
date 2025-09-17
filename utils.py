@@ -1,5 +1,5 @@
 from torchsummary import summary
-from config import device, logs_dir
+from config import device, logs_dir, input_size, PROJECT_ROOT
 import logging
 import json
 import time
@@ -9,6 +9,9 @@ from pathlib import Path
 from torch import nn
 from torch.utils.data import DataLoader
 import torch
+import io
+import sys
+from contextlib import redirect_stdout
 
 def GetCorrectPredCount(pPrediction, pLabels):
   return pPrediction.argmax(dim=1).eq(pLabels).sum().item()
@@ -16,15 +19,23 @@ def GetCorrectPredCount(pPrediction, pLabels):
 def show_model_summary(model, input_size):
   summary(model, input_size, device=device)
 
-# Global logger
-logger = None
+# Global experiment start time
 experiment_start_time = None
+
+def get_relative_path(path: Path) -> str:
+    """Convert absolute path to relative path from PROJECT_ROOT"""
+    try:
+        return str(Path(path).relative_to(PROJECT_ROOT))
+    except ValueError:
+        # If path is not relative to PROJECT_ROOT, just return the name
+        return str(Path(path).name)
 
 def setup_logging(experiment_name: str = None, log_level: str = "INFO"):
     """
     Setup comprehensive logging for training experiments
+    Returns: (experiment_dir, logger)
     """
-    global logger, experiment_start_time
+    global experiment_start_time
     
     # Create logs directory if it doesn't exist
     logs_dir.mkdir(exist_ok=True)
@@ -72,24 +83,36 @@ def setup_logging(experiment_name: str = None, log_level: str = "INFO"):
     # Log experiment start
     logger.info("=" * 80)
     logger.info(f"🚀 Starting experiment: {experiment_name}")
-    logger.info(f"📁 Experiment directory: {experiment_dir}")
-    logger.info(f"💾 Log file: {log_file}")
+    logger.info(f"📁 Experiment directory: {get_relative_path(experiment_dir)}")
+    logger.info(f"💾 Log file: {get_relative_path(log_file)}")
     logger.info("=" * 80)
     
-    return experiment_dir
+    return experiment_dir, experiment_start_time, logger
 
-def log_model_info(model: nn.Module):
+def log_model_info(logger, model: nn.Module):
     """Log model architecture and parameters"""
     if logger is None:
         return
-        
-    total_params = sum(p.numel() for p in model.parameters())
-    trainable_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
     
-    logger.info("🏗️ Model Architecture:")
-    logger.info(f"   Total parameters: {total_params:,}")
-    logger.info(f"   Trainable parameters: {trainable_params:,}")
-    logger.info(f"   Model size: {total_params * 4 / 1024 / 1024:.2f} MB (float32)")
+    # Capture model summary output
+    logger.info("📋 Detailed Model Summary:")
+    logger.info("-" * 60)
+
+    try:
+        # Create a string buffer to capture the summary output
+        # Capture the summary output
+        summary_buffer = io.StringIO()
+        with redirect_stdout(summary_buffer):
+            show_model_summary(model, input_size)
+        
+        # Get the summary string and log it line by line
+        summary_output = summary_buffer.getvalue()
+        for line in summary_output.split('\n'):
+            if line.strip():  # Only log non-empty lines
+                logger.info(f"   {line}")
+                
+    except Exception as e:
+        logger.warning(f"Could not generate model summary: {e}")
     
     # Log model structure
     logger.debug("Model structure:")
@@ -97,7 +120,9 @@ def log_model_info(model: nn.Module):
         if len(list(module.children())) == 0:  # leaf modules only
             logger.debug(f"   {name}: {module}")
 
-def log_dataset_info(train_loader: DataLoader, test_loader: DataLoader):
+    logger.info("-" * 60)
+
+def log_dataset_info(logger, train_loader: DataLoader, test_loader: DataLoader):
     """Log dataset information"""
     if logger is None:
         return
@@ -109,7 +134,7 @@ def log_dataset_info(train_loader: DataLoader, test_loader: DataLoader):
     logger.info(f"   Test samples: {len(test_loader.dataset):,}")
     logger.info(f"   Batch size: {train_loader.batch_size}")
 
-def log_training_config(optimizer: torch.optim.Optimizer, loss_fn: nn.Module, scheduler=None):
+def log_training_config(logger, optimizer: torch.optim.Optimizer, loss_fn: nn.Module, scheduler=None):
     """Log training configuration"""
     if logger is None:
         return
@@ -130,7 +155,7 @@ def log_training_config(optimizer: torch.optim.Optimizer, loss_fn: nn.Module, sc
             if key != 'params':
                 logger.debug(f"     {key}: {value}")
 
-def save_metrics_to_json(experiment_dir: Path, metrics: dict):
+def save_metrics_to_json(logger, experiment_dir: Path, metrics: dict):
     """Save training metrics to JSON file"""
     metrics_file = experiment_dir / "metrics.json"
     
@@ -147,4 +172,4 @@ def save_metrics_to_json(experiment_dir: Path, metrics: dict):
     with open(metrics_file, 'w') as f:
         json.dump(metrics_with_meta, f, indent=2)
     
-    logger.info(f"💾 Metrics saved to: {metrics_file}")
+    logger.info(f"💾 Metrics saved to: {get_relative_path(metrics_file)}")
