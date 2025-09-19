@@ -1,0 +1,512 @@
+2025-09-20 03:17:36 |     INFO | setup_logging:84 | ================================================================================
+2025-09-20 03:17:36 |     INFO | setup_logging:85 | 🚀 Starting experiment: mnist_fully_cnn_tiny4k_params_cosineannealinglr
+2025-09-20 03:17:36 |     INFO | setup_logging:86 | 📁 Experiment directory: logs/mnist_fully_cnn_tiny4k_params_cosineannealinglr
+2025-09-20 03:17:36 |     INFO | setup_logging:87 | 💾 Log file: logs/mnist_fully_cnn_tiny4k_params_cosineannealinglr/training.log
+2025-09-20 03:17:36 |     INFO | setup_logging:88 | ================================================================================
+2025-09-20 03:17:36 |     INFO | log_model_info:98 | 📋 Detailed Model Summary:
+2025-09-20 03:17:36 |     INFO | log_model_info:99 | ------------------------------------------------------------
+2025-09-20 03:17:36 |     INFO | log_model_info:112 |    ==========================================================================================
+2025-09-20 03:17:36 |     INFO | log_model_info:112 |    Layer (type:depth-idx)                   Output Shape              Param #
+2025-09-20 03:17:36 |     INFO | log_model_info:112 |    ==========================================================================================
+2025-09-20 03:17:36 |     INFO | log_model_info:112 |    ├─Sequential: 1-1                        [-1, 8, 14, 14]           --
+2025-09-20 03:17:36 |     INFO | log_model_info:112 |    |    └─Conv2d: 2-1                       [-1, 8, 28, 28]           80
+2025-09-20 03:17:36 |     INFO | log_model_info:112 |    |    └─ReLU: 2-2                         [-1, 8, 28, 28]           --
+2025-09-20 03:17:36 |     INFO | log_model_info:112 |    |    └─BatchNorm2d: 2-3                  [-1, 8, 28, 28]           16
+2025-09-20 03:17:36 |     INFO | log_model_info:112 |    |    └─Conv2d: 2-4                       [-1, 8, 28, 28]           584
+2025-09-20 03:17:36 |     INFO | log_model_info:112 |    |    └─ReLU: 2-5                         [-1, 8, 28, 28]           --
+2025-09-20 03:17:36 |     INFO | log_model_info:112 |    |    └─BatchNorm2d: 2-6                  [-1, 8, 28, 28]           16
+2025-09-20 03:17:36 |     INFO | log_model_info:112 |    |    └─Dropout: 2-7                      [-1, 8, 28, 28]           --
+2025-09-20 03:17:36 |     INFO | log_model_info:112 |    |    └─MaxPool2d: 2-8                    [-1, 8, 14, 14]           --
+2025-09-20 03:17:36 |     INFO | log_model_info:112 |    ├─Sequential: 1-2                        [-1, 12, 7, 7]            --
+2025-09-20 03:17:36 |     INFO | log_model_info:112 |    |    └─Conv2d: 2-9                       [-1, 12, 14, 14]          876
+2025-09-20 03:17:36 |     INFO | log_model_info:112 |    |    └─ReLU: 2-10                        [-1, 12, 14, 14]          --
+2025-09-20 03:17:36 |     INFO | log_model_info:112 |    |    └─BatchNorm2d: 2-11                 [-1, 12, 14, 14]          24
+2025-09-20 03:17:36 |     INFO | log_model_info:112 |    |    └─Conv2d: 2-12                      [-1, 12, 14, 14]          1,308
+2025-09-20 03:17:36 |     INFO | log_model_info:112 |    |    └─ReLU: 2-13                        [-1, 12, 14, 14]          --
+2025-09-20 03:17:36 |     INFO | log_model_info:112 |    |    └─BatchNorm2d: 2-14                 [-1, 12, 14, 14]          24
+2025-09-20 03:17:36 |     INFO | log_model_info:112 |    |    └─Dropout: 2-15                     [-1, 12, 14, 14]          --
+2025-09-20 03:17:36 |     INFO | log_model_info:112 |    |    └─MaxPool2d: 2-16                   [-1, 12, 7, 7]            --
+2025-09-20 03:17:36 |     INFO | log_model_info:112 |    ├─Sequential: 1-3                        [-1, 16, 7, 7]            --
+2025-09-20 03:17:36 |     INFO | log_model_info:112 |    |    └─Conv2d: 2-17                      [-1, 16, 7, 7]            1,744
+2025-09-20 03:17:36 |     INFO | log_model_info:112 |    |    └─ReLU: 2-18                        [-1, 16, 7, 7]            --
+2025-09-20 03:17:36 |     INFO | log_model_info:112 |    |    └─BatchNorm2d: 2-19                 [-1, 16, 7, 7]            32
+2025-09-20 03:17:36 |     INFO | log_model_info:112 |    |    └─Dropout: 2-20                     [-1, 16, 7, 7]            --
+2025-09-20 03:17:36 |     INFO | log_model_info:112 |    ├─Sequential: 1-4                        [-1, 10, 1, 1]            --
+2025-09-20 03:17:36 |     INFO | log_model_info:112 |    |    └─Conv2d: 2-21                      [-1, 10, 7, 7]            170
+2025-09-20 03:17:36 |     INFO | log_model_info:112 |    |    └─AdaptiveAvgPool2d: 2-22           [-1, 10, 1, 1]            --
+2025-09-20 03:17:36 |     INFO | log_model_info:112 |    ==========================================================================================
+2025-09-20 03:17:36 |     INFO | log_model_info:112 |    Total params: 4,874
+2025-09-20 03:17:36 |     INFO | log_model_info:112 |    Trainable params: 4,874
+2025-09-20 03:17:36 |     INFO | log_model_info:112 |    Non-trainable params: 0
+2025-09-20 03:17:36 |     INFO | log_model_info:112 |    Total mult-adds (M): 1.03
+2025-09-20 03:17:36 |     INFO | log_model_info:112 |    ==========================================================================================
+2025-09-20 03:17:36 |     INFO | log_model_info:112 |    Input size (MB): 0.00
+2025-09-20 03:17:36 |     INFO | log_model_info:112 |    Forward/backward pass size (MB): 0.28
+2025-09-20 03:17:36 |     INFO | log_model_info:112 |    Params size (MB): 0.02
+2025-09-20 03:17:36 |     INFO | log_model_info:112 |    Estimated Total Size (MB): 0.30
+2025-09-20 03:17:36 |     INFO | log_model_info:112 |    ==========================================================================================
+2025-09-20 03:17:36 |     INFO | log_model_info:123 | ------------------------------------------------------------
+2025-09-20 03:17:36 |     INFO | log_dataset_info:130 | 📊 Dataset Information:
+2025-09-20 03:17:36 |     INFO | log_dataset_info:131 |    Training batches: 1875
+2025-09-20 03:17:36 |     INFO | log_dataset_info:132 |    Test batches: 313
+2025-09-20 03:17:36 |     INFO | log_dataset_info:133 |    Training samples: 60,000
+2025-09-20 03:17:36 |     INFO | log_dataset_info:134 |    Test samples: 10,000
+2025-09-20 03:17:36 |     INFO | log_dataset_info:135 |    Batch size: 32
+2025-09-20 03:17:36 |     INFO | log_training_config:142 | ⚙️ Training Configuration:
+2025-09-20 03:17:36 |     INFO | log_training_config:143 |    Device: mps
+2025-09-20 03:17:36 |     INFO | log_training_config:144 |    Optimizer: AdamW
+2025-09-20 03:17:36 |     INFO | log_training_config:145 |    Learning rate: 0.0015
+2025-09-20 03:17:36 |     INFO | log_training_config:146 |    Loss function: CrossEntropyLoss
+2025-09-20 03:17:36 |     INFO | log_training_config:149 |    Scheduler: CosineAnnealingLR
+2025-09-20 03:17:36 |     INFO | trainer:255 | 🎯 Training Configuration:
+2025-09-20 03:17:36 |     INFO | trainer:256 |    Epochs: 20
+2025-09-20 03:17:36 |     INFO | trainer:257 |    Evaluate every: 20 epochs
+2025-09-20 03:17:36 |     INFO | trainer:258 | ================================================================================
+2025-09-20 03:17:36 |     INFO | trainer:260 | 🚀 Starting Training Process...
+2025-09-20 03:17:36 |     INFO | trainer:261 | ⚙️  Device: mps
+2025-09-20 03:17:36 |     INFO | trainer:262 | ================================================================================
+2025-09-20 03:17:36 |     INFO | trainer:270 | 🔄 Starting Epoch 1/20
+2025-09-20 03:17:36 |     INFO | trainer:271 | --------------------------------------------------
+2025-09-20 03:18:30 |     INFO | train:96 | 📈 Epoch 1 Training Results:
+2025-09-20 03:18:30 |     INFO | train:97 |    Loss: 0.3980
+2025-09-20 03:18:30 |     INFO | train:98 |    Accuracy: 89.04% (60000 samples)
+2025-09-20 03:18:30 |     INFO | train:99 |    Precision: 89.30%
+2025-09-20 03:18:30 |     INFO | train:100 |    Recall: 88.84%
+2025-09-20 03:18:30 |     INFO | train:101 |    F1-Score: 88.97%
+2025-09-20 03:18:30 |     INFO | train:102 |    LR: 0.001500
+2025-09-20 03:18:37 |     INFO | test:153 | 📊 Epoch 1 Test Results:
+2025-09-20 03:18:37 |     INFO | test:154 |    Loss: 0.1445
+2025-09-20 03:18:37 |     INFO | test:155 |    Accuracy: 95.66% (10000 samples)
+2025-09-20 03:18:37 |     INFO | test:156 |    Precision: 95.75%
+2025-09-20 03:18:37 |     INFO | test:157 |    Recall: 95.62%
+2025-09-20 03:18:37 |     INFO | test:158 |    F1-Score: 95.61%
+2025-09-20 03:18:37 |     INFO | trainer:291 | 📉 Learning rate updated: 0.001500 → 0.001491
+2025-09-20 03:18:37 |     INFO | trainer:300 | 🏆 New best model saved! Accuracy: 95.66%
+2025-09-20 03:18:37 |     INFO | trainer:306 | 📈 Epoch 1 Summary:
+2025-09-20 03:18:37 |     INFO | trainer:307 |    Duration: 60.33s
+2025-09-20 03:18:37 |     INFO | trainer:308 |    Train - Loss: 0.3980, Accuracy: 89.04%
+2025-09-20 03:18:37 |     INFO | trainer:309 |    Test  - Loss: 0.1445, Accuracy: 95.66%
+2025-09-20 03:18:37 |     INFO | trainer:310 |    🏆 Best Test Accuracy: 95.66% (Epoch 1)
+2025-09-20 03:18:37 |     INFO | trainer:270 | 🔄 Starting Epoch 2/20
+2025-09-20 03:18:37 |     INFO | trainer:271 | --------------------------------------------------
+2025-09-20 03:19:29 |     INFO | train:96 | 📈 Epoch 2 Training Results:
+2025-09-20 03:19:29 |     INFO | train:97 |    Loss: 0.1299
+2025-09-20 03:19:29 |     INFO | train:98 |    Accuracy: 96.21% (60000 samples)
+2025-09-20 03:19:29 |     INFO | train:99 |    Precision: 96.17%
+2025-09-20 03:19:29 |     INFO | train:100 |    Recall: 96.17%
+2025-09-20 03:19:29 |     INFO | train:101 |    F1-Score: 96.17%
+2025-09-20 03:19:29 |     INFO | train:102 |    LR: 0.001491
+2025-09-20 03:19:35 |     INFO | test:153 | 📊 Epoch 2 Test Results:
+2025-09-20 03:19:35 |     INFO | test:154 |    Loss: 0.0641
+2025-09-20 03:19:35 |     INFO | test:155 |    Accuracy: 98.05% (10000 samples)
+2025-09-20 03:19:35 |     INFO | test:156 |    Precision: 98.05%
+2025-09-20 03:19:35 |     INFO | test:157 |    Recall: 98.03%
+2025-09-20 03:19:35 |     INFO | test:158 |    F1-Score: 98.03%
+2025-09-20 03:19:35 |     INFO | trainer:291 | 📉 Learning rate updated: 0.001491 → 0.001463
+2025-09-20 03:19:35 |     INFO | trainer:300 | 🏆 New best model saved! Accuracy: 98.05%
+2025-09-20 03:19:35 |     INFO | trainer:306 | 📈 Epoch 2 Summary:
+2025-09-20 03:19:35 |     INFO | trainer:307 |    Duration: 58.43s
+2025-09-20 03:19:35 |     INFO | trainer:308 |    Train - Loss: 0.1299, Accuracy: 96.21%
+2025-09-20 03:19:35 |     INFO | trainer:309 |    Test  - Loss: 0.0641, Accuracy: 98.05%
+2025-09-20 03:19:35 |     INFO | trainer:310 |    🏆 Best Test Accuracy: 98.05% (Epoch 2)
+2025-09-20 03:19:35 |     INFO | trainer:270 | 🔄 Starting Epoch 3/20
+2025-09-20 03:19:35 |     INFO | trainer:271 | --------------------------------------------------
+2025-09-20 03:20:27 |     INFO | train:96 | 📈 Epoch 3 Training Results:
+2025-09-20 03:20:27 |     INFO | train:97 |    Loss: 0.1018
+2025-09-20 03:20:27 |     INFO | train:98 |    Accuracy: 96.83% (60000 samples)
+2025-09-20 03:20:27 |     INFO | train:99 |    Precision: 96.80%
+2025-09-20 03:20:27 |     INFO | train:100 |    Recall: 96.80%
+2025-09-20 03:20:27 |     INFO | train:101 |    F1-Score: 96.80%
+2025-09-20 03:20:27 |     INFO | train:102 |    LR: 0.001463
+2025-09-20 03:20:33 |     INFO | test:153 | 📊 Epoch 3 Test Results:
+2025-09-20 03:20:33 |     INFO | test:154 |    Loss: 0.0524
+2025-09-20 03:20:33 |     INFO | test:155 |    Accuracy: 98.29% (10000 samples)
+2025-09-20 03:20:33 |     INFO | test:156 |    Precision: 98.30%
+2025-09-20 03:20:33 |     INFO | test:157 |    Recall: 98.27%
+2025-09-20 03:20:33 |     INFO | test:158 |    F1-Score: 98.28%
+2025-09-20 03:20:33 |     INFO | trainer:291 | 📉 Learning rate updated: 0.001463 → 0.001418
+2025-09-20 03:20:33 |     INFO | trainer:300 | 🏆 New best model saved! Accuracy: 98.29%
+2025-09-20 03:20:33 |     INFO | trainer:306 | 📈 Epoch 3 Summary:
+2025-09-20 03:20:33 |     INFO | trainer:307 |    Duration: 57.92s
+2025-09-20 03:20:33 |     INFO | trainer:308 |    Train - Loss: 0.1018, Accuracy: 96.83%
+2025-09-20 03:20:33 |     INFO | trainer:309 |    Test  - Loss: 0.0524, Accuracy: 98.29%
+2025-09-20 03:20:33 |     INFO | trainer:310 |    🏆 Best Test Accuracy: 98.29% (Epoch 3)
+2025-09-20 03:20:33 |     INFO | trainer:270 | 🔄 Starting Epoch 4/20
+2025-09-20 03:20:33 |     INFO | trainer:271 | --------------------------------------------------
+2025-09-20 03:21:25 |     INFO | train:96 | 📈 Epoch 4 Training Results:
+2025-09-20 03:21:25 |     INFO | train:97 |    Loss: 0.0848
+2025-09-20 03:21:25 |     INFO | train:98 |    Accuracy: 97.34% (60000 samples)
+2025-09-20 03:21:25 |     INFO | train:99 |    Precision: 97.31%
+2025-09-20 03:21:25 |     INFO | train:100 |    Recall: 97.31%
+2025-09-20 03:21:25 |     INFO | train:101 |    F1-Score: 97.31%
+2025-09-20 03:21:25 |     INFO | train:102 |    LR: 0.001418
+2025-09-20 03:21:31 |     INFO | test:153 | 📊 Epoch 4 Test Results:
+2025-09-20 03:21:31 |     INFO | test:154 |    Loss: 0.0570
+2025-09-20 03:21:31 |     INFO | test:155 |    Accuracy: 98.24% (10000 samples)
+2025-09-20 03:21:31 |     INFO | test:156 |    Precision: 98.26%
+2025-09-20 03:21:31 |     INFO | test:157 |    Recall: 98.21%
+2025-09-20 03:21:31 |     INFO | test:158 |    F1-Score: 98.22%
+2025-09-20 03:21:31 |     INFO | trainer:291 | 📉 Learning rate updated: 0.001418 → 0.001357
+2025-09-20 03:21:31 |     INFO | trainer:306 | 📈 Epoch 4 Summary:
+2025-09-20 03:21:31 |     INFO | trainer:307 |    Duration: 57.77s
+2025-09-20 03:21:31 |     INFO | trainer:308 |    Train - Loss: 0.0848, Accuracy: 97.34%
+2025-09-20 03:21:31 |     INFO | trainer:309 |    Test  - Loss: 0.0570, Accuracy: 98.24%
+2025-09-20 03:21:31 |     INFO | trainer:310 |    🏆 Best Test Accuracy: 98.29% (Epoch 3)
+2025-09-20 03:21:31 |     INFO | trainer:270 | 🔄 Starting Epoch 5/20
+2025-09-20 03:21:31 |     INFO | trainer:271 | --------------------------------------------------
+2025-09-20 03:22:22 |     INFO | train:96 | 📈 Epoch 5 Training Results:
+2025-09-20 03:22:22 |     INFO | train:97 |    Loss: 0.0773
+2025-09-20 03:22:22 |     INFO | train:98 |    Accuracy: 97.58% (60000 samples)
+2025-09-20 03:22:22 |     INFO | train:99 |    Precision: 97.57%
+2025-09-20 03:22:22 |     INFO | train:100 |    Recall: 97.57%
+2025-09-20 03:22:22 |     INFO | train:101 |    F1-Score: 97.57%
+2025-09-20 03:22:22 |     INFO | train:102 |    LR: 0.001357
+2025-09-20 03:22:28 |     INFO | test:153 | 📊 Epoch 5 Test Results:
+2025-09-20 03:22:28 |     INFO | test:154 |    Loss: 0.0370
+2025-09-20 03:22:28 |     INFO | test:155 |    Accuracy: 98.76% (10000 samples)
+2025-09-20 03:22:28 |     INFO | test:156 |    Precision: 98.75%
+2025-09-20 03:22:28 |     INFO | test:157 |    Recall: 98.74%
+2025-09-20 03:22:28 |     INFO | test:158 |    F1-Score: 98.74%
+2025-09-20 03:22:28 |     INFO | trainer:291 | 📉 Learning rate updated: 0.001357 → 0.001280
+2025-09-20 03:22:28 |     INFO | trainer:300 | 🏆 New best model saved! Accuracy: 98.76%
+2025-09-20 03:22:28 |     INFO | trainer:306 | 📈 Epoch 5 Summary:
+2025-09-20 03:22:28 |     INFO | trainer:307 |    Duration: 57.60s
+2025-09-20 03:22:28 |     INFO | trainer:308 |    Train - Loss: 0.0773, Accuracy: 97.58%
+2025-09-20 03:22:28 |     INFO | trainer:309 |    Test  - Loss: 0.0370, Accuracy: 98.76%
+2025-09-20 03:22:28 |     INFO | trainer:310 |    🏆 Best Test Accuracy: 98.76% (Epoch 5)
+2025-09-20 03:22:28 |     INFO | trainer:270 | 🔄 Starting Epoch 6/20
+2025-09-20 03:22:28 |     INFO | trainer:271 | --------------------------------------------------
+2025-09-20 03:23:20 |     INFO | train:96 | 📈 Epoch 6 Training Results:
+2025-09-20 03:23:20 |     INFO | train:97 |    Loss: 0.0710
+2025-09-20 03:23:20 |     INFO | train:98 |    Accuracy: 97.79% (60000 samples)
+2025-09-20 03:23:20 |     INFO | train:99 |    Precision: 97.77%
+2025-09-20 03:23:20 |     INFO | train:100 |    Recall: 97.78%
+2025-09-20 03:23:20 |     INFO | train:101 |    F1-Score: 97.78%
+2025-09-20 03:23:20 |     INFO | train:102 |    LR: 0.001280
+2025-09-20 03:23:26 |     INFO | test:153 | 📊 Epoch 6 Test Results:
+2025-09-20 03:23:26 |     INFO | test:154 |    Loss: 0.0421
+2025-09-20 03:23:26 |     INFO | test:155 |    Accuracy: 98.59% (10000 samples)
+2025-09-20 03:23:26 |     INFO | test:156 |    Precision: 98.60%
+2025-09-20 03:23:26 |     INFO | test:157 |    Recall: 98.57%
+2025-09-20 03:23:26 |     INFO | test:158 |    F1-Score: 98.58%
+2025-09-20 03:23:26 |     INFO | trainer:291 | 📉 Learning rate updated: 0.001280 → 0.001191
+2025-09-20 03:23:26 |     INFO | trainer:306 | 📈 Epoch 6 Summary:
+2025-09-20 03:23:26 |     INFO | trainer:307 |    Duration: 57.86s
+2025-09-20 03:23:26 |     INFO | trainer:308 |    Train - Loss: 0.0710, Accuracy: 97.79%
+2025-09-20 03:23:26 |     INFO | trainer:309 |    Test  - Loss: 0.0421, Accuracy: 98.59%
+2025-09-20 03:23:26 |     INFO | trainer:310 |    🏆 Best Test Accuracy: 98.76% (Epoch 5)
+2025-09-20 03:23:26 |     INFO | trainer:270 | 🔄 Starting Epoch 7/20
+2025-09-20 03:23:26 |     INFO | trainer:271 | --------------------------------------------------
+2025-09-20 03:24:18 |     INFO | train:96 | 📈 Epoch 7 Training Results:
+2025-09-20 03:24:18 |     INFO | train:97 |    Loss: 0.0632
+2025-09-20 03:24:18 |     INFO | train:98 |    Accuracy: 98.02% (60000 samples)
+2025-09-20 03:24:18 |     INFO | train:99 |    Precision: 98.00%
+2025-09-20 03:24:18 |     INFO | train:100 |    Recall: 98.00%
+2025-09-20 03:24:18 |     INFO | train:101 |    F1-Score: 98.00%
+2025-09-20 03:24:18 |     INFO | train:102 |    LR: 0.001191
+2025-09-20 03:24:22 |     INFO | test:153 | 📊 Epoch 7 Test Results:
+2025-09-20 03:24:22 |     INFO | test:154 |    Loss: 0.0337
+2025-09-20 03:24:22 |     INFO | test:155 |    Accuracy: 98.93% (10000 samples)
+2025-09-20 03:24:22 |     INFO | test:156 |    Precision: 98.93%
+2025-09-20 03:24:22 |     INFO | test:157 |    Recall: 98.92%
+2025-09-20 03:24:22 |     INFO | test:158 |    F1-Score: 98.92%
+2025-09-20 03:24:22 |     INFO | trainer:291 | 📉 Learning rate updated: 0.001191 → 0.001091
+2025-09-20 03:24:22 |     INFO | trainer:300 | 🏆 New best model saved! Accuracy: 98.93%
+2025-09-20 03:24:22 |     INFO | trainer:306 | 📈 Epoch 7 Summary:
+2025-09-20 03:24:22 |     INFO | trainer:307 |    Duration: 55.84s
+2025-09-20 03:24:22 |     INFO | trainer:308 |    Train - Loss: 0.0632, Accuracy: 98.02%
+2025-09-20 03:24:22 |     INFO | trainer:309 |    Test  - Loss: 0.0337, Accuracy: 98.93%
+2025-09-20 03:24:22 |     INFO | trainer:310 |    🏆 Best Test Accuracy: 98.93% (Epoch 7)
+2025-09-20 03:24:22 |     INFO | trainer:270 | 🔄 Starting Epoch 8/20
+2025-09-20 03:24:22 |     INFO | trainer:271 | --------------------------------------------------
+2025-09-20 03:25:09 |     INFO | train:96 | 📈 Epoch 8 Training Results:
+2025-09-20 03:25:09 |     INFO | train:97 |    Loss: 0.0600
+2025-09-20 03:25:09 |     INFO | train:98 |    Accuracy: 98.14% (60000 samples)
+2025-09-20 03:25:09 |     INFO | train:99 |    Precision: 98.12%
+2025-09-20 03:25:09 |     INFO | train:100 |    Recall: 98.12%
+2025-09-20 03:25:09 |     INFO | train:101 |    F1-Score: 98.12%
+2025-09-20 03:25:09 |     INFO | train:102 |    LR: 0.001091
+2025-09-20 03:25:14 |     INFO | test:153 | 📊 Epoch 8 Test Results:
+2025-09-20 03:25:14 |     INFO | test:154 |    Loss: 0.0397
+2025-09-20 03:25:14 |     INFO | test:155 |    Accuracy: 98.72% (10000 samples)
+2025-09-20 03:25:14 |     INFO | test:156 |    Precision: 98.74%
+2025-09-20 03:25:14 |     INFO | test:157 |    Recall: 98.69%
+2025-09-20 03:25:14 |     INFO | test:158 |    F1-Score: 98.71%
+2025-09-20 03:25:14 |     INFO | trainer:291 | 📉 Learning rate updated: 0.001091 → 0.000982
+2025-09-20 03:25:14 |     INFO | trainer:306 | 📈 Epoch 8 Summary:
+2025-09-20 03:25:14 |     INFO | trainer:307 |    Duration: 51.49s
+2025-09-20 03:25:14 |     INFO | trainer:308 |    Train - Loss: 0.0600, Accuracy: 98.14%
+2025-09-20 03:25:14 |     INFO | trainer:309 |    Test  - Loss: 0.0397, Accuracy: 98.72%
+2025-09-20 03:25:14 |     INFO | trainer:310 |    🏆 Best Test Accuracy: 98.93% (Epoch 7)
+2025-09-20 03:25:14 |     INFO | trainer:270 | 🔄 Starting Epoch 9/20
+2025-09-20 03:25:14 |     INFO | trainer:271 | --------------------------------------------------
+2025-09-20 03:26:02 |     INFO | train:96 | 📈 Epoch 9 Training Results:
+2025-09-20 03:26:02 |     INFO | train:97 |    Loss: 0.0540
+2025-09-20 03:26:02 |     INFO | train:98 |    Accuracy: 98.34% (60000 samples)
+2025-09-20 03:26:02 |     INFO | train:99 |    Precision: 98.33%
+2025-09-20 03:26:02 |     INFO | train:100 |    Recall: 98.33%
+2025-09-20 03:26:02 |     INFO | train:101 |    F1-Score: 98.33%
+2025-09-20 03:26:02 |     INFO | train:102 |    LR: 0.000982
+2025-09-20 03:26:09 |     INFO | test:153 | 📊 Epoch 9 Test Results:
+2025-09-20 03:26:09 |     INFO | test:154 |    Loss: 0.0280
+2025-09-20 03:26:09 |     INFO | test:155 |    Accuracy: 99.02% (10000 samples)
+2025-09-20 03:26:09 |     INFO | test:156 |    Precision: 99.02%
+2025-09-20 03:26:09 |     INFO | test:157 |    Recall: 99.01%
+2025-09-20 03:26:09 |     INFO | test:158 |    F1-Score: 99.01%
+2025-09-20 03:26:09 |     INFO | trainer:291 | 📉 Learning rate updated: 0.000982 → 0.000868
+2025-09-20 03:26:09 |     INFO | trainer:300 | 🏆 New best model saved! Accuracy: 99.02%
+2025-09-20 03:26:09 |     INFO | trainer:306 | 📈 Epoch 9 Summary:
+2025-09-20 03:26:09 |     INFO | trainer:307 |    Duration: 54.95s
+2025-09-20 03:26:09 |     INFO | trainer:308 |    Train - Loss: 0.0540, Accuracy: 98.34%
+2025-09-20 03:26:09 |     INFO | trainer:309 |    Test  - Loss: 0.0280, Accuracy: 99.02%
+2025-09-20 03:26:09 |     INFO | trainer:310 |    🏆 Best Test Accuracy: 99.02% (Epoch 9)
+2025-09-20 03:26:09 |     INFO | trainer:270 | 🔄 Starting Epoch 10/20
+2025-09-20 03:26:09 |     INFO | trainer:271 | --------------------------------------------------
+2025-09-20 03:27:03 |     INFO | train:96 | 📈 Epoch 10 Training Results:
+2025-09-20 03:27:03 |     INFO | train:97 |    Loss: 0.0519
+2025-09-20 03:27:03 |     INFO | train:98 |    Accuracy: 98.38% (60000 samples)
+2025-09-20 03:27:03 |     INFO | train:99 |    Precision: 98.37%
+2025-09-20 03:27:03 |     INFO | train:100 |    Recall: 98.37%
+2025-09-20 03:27:03 |     INFO | train:101 |    F1-Score: 98.37%
+2025-09-20 03:27:03 |     INFO | train:102 |    LR: 0.000868
+2025-09-20 03:27:09 |     INFO | test:153 | 📊 Epoch 10 Test Results:
+2025-09-20 03:27:09 |     INFO | test:154 |    Loss: 0.0314
+2025-09-20 03:27:09 |     INFO | test:155 |    Accuracy: 98.93% (10000 samples)
+2025-09-20 03:27:09 |     INFO | test:156 |    Precision: 98.94%
+2025-09-20 03:27:09 |     INFO | test:157 |    Recall: 98.92%
+2025-09-20 03:27:09 |     INFO | test:158 |    F1-Score: 98.93%
+2025-09-20 03:27:09 |     INFO | trainer:291 | 📉 Learning rate updated: 0.000868 → 0.000751
+2025-09-20 03:27:09 |     INFO | trainer:306 | 📈 Epoch 10 Summary:
+2025-09-20 03:27:09 |     INFO | trainer:307 |    Duration: 60.28s
+2025-09-20 03:27:09 |     INFO | trainer:308 |    Train - Loss: 0.0519, Accuracy: 98.38%
+2025-09-20 03:27:09 |     INFO | trainer:309 |    Test  - Loss: 0.0314, Accuracy: 98.93%
+2025-09-20 03:27:09 |     INFO | trainer:310 |    🏆 Best Test Accuracy: 99.02% (Epoch 9)
+2025-09-20 03:27:09 |     INFO | trainer:270 | 🔄 Starting Epoch 11/20
+2025-09-20 03:27:09 |     INFO | trainer:271 | --------------------------------------------------
+2025-09-20 03:28:02 |     INFO | train:96 | 📈 Epoch 11 Training Results:
+2025-09-20 03:28:02 |     INFO | train:97 |    Loss: 0.0476
+2025-09-20 03:28:02 |     INFO | train:98 |    Accuracy: 98.47% (60000 samples)
+2025-09-20 03:28:02 |     INFO | train:99 |    Precision: 98.46%
+2025-09-20 03:28:02 |     INFO | train:100 |    Recall: 98.45%
+2025-09-20 03:28:02 |     INFO | train:101 |    F1-Score: 98.45%
+2025-09-20 03:28:02 |     INFO | train:102 |    LR: 0.000751
+2025-09-20 03:28:08 |     INFO | test:153 | 📊 Epoch 11 Test Results:
+2025-09-20 03:28:08 |     INFO | test:154 |    Loss: 0.0306
+2025-09-20 03:28:08 |     INFO | test:155 |    Accuracy: 99.04% (10000 samples)
+2025-09-20 03:28:08 |     INFO | test:156 |    Precision: 99.05%
+2025-09-20 03:28:08 |     INFO | test:157 |    Recall: 99.02%
+2025-09-20 03:28:08 |     INFO | test:158 |    F1-Score: 99.04%
+2025-09-20 03:28:08 |     INFO | trainer:291 | 📉 Learning rate updated: 0.000751 → 0.000633
+2025-09-20 03:28:08 |     INFO | trainer:300 | 🏆 New best model saved! Accuracy: 99.04%
+2025-09-20 03:28:08 |     INFO | trainer:306 | 📈 Epoch 11 Summary:
+2025-09-20 03:28:08 |     INFO | trainer:307 |    Duration: 58.77s
+2025-09-20 03:28:08 |     INFO | trainer:308 |    Train - Loss: 0.0476, Accuracy: 98.47%
+2025-09-20 03:28:08 |     INFO | trainer:309 |    Test  - Loss: 0.0306, Accuracy: 99.04%
+2025-09-20 03:28:08 |     INFO | trainer:310 |    🏆 Best Test Accuracy: 99.04% (Epoch 11)
+2025-09-20 03:28:08 |     INFO | trainer:270 | 🔄 Starting Epoch 12/20
+2025-09-20 03:28:08 |     INFO | trainer:271 | --------------------------------------------------
+2025-09-20 03:28:59 |     INFO | train:96 | 📈 Epoch 12 Training Results:
+2025-09-20 03:28:59 |     INFO | train:97 |    Loss: 0.0457
+2025-09-20 03:28:59 |     INFO | train:98 |    Accuracy: 98.55% (60000 samples)
+2025-09-20 03:28:59 |     INFO | train:99 |    Precision: 98.54%
+2025-09-20 03:28:59 |     INFO | train:100 |    Recall: 98.54%
+2025-09-20 03:28:59 |     INFO | train:101 |    F1-Score: 98.54%
+2025-09-20 03:28:59 |     INFO | train:102 |    LR: 0.000633
+2025-09-20 03:29:04 |     INFO | test:153 | 📊 Epoch 12 Test Results:
+2025-09-20 03:29:04 |     INFO | test:154 |    Loss: 0.0257
+2025-09-20 03:29:04 |     INFO | test:155 |    Accuracy: 99.14% (10000 samples)
+2025-09-20 03:29:04 |     INFO | test:156 |    Precision: 99.14%
+2025-09-20 03:29:04 |     INFO | test:157 |    Recall: 99.12%
+2025-09-20 03:29:04 |     INFO | test:158 |    F1-Score: 99.13%
+2025-09-20 03:29:04 |     INFO | trainer:291 | 📉 Learning rate updated: 0.000633 → 0.000519
+2025-09-20 03:29:04 |     INFO | trainer:300 | 🏆 New best model saved! Accuracy: 99.14%
+2025-09-20 03:29:04 |     INFO | trainer:306 | 📈 Epoch 12 Summary:
+2025-09-20 03:29:04 |     INFO | trainer:307 |    Duration: 56.12s
+2025-09-20 03:29:04 |     INFO | trainer:308 |    Train - Loss: 0.0457, Accuracy: 98.55%
+2025-09-20 03:29:04 |     INFO | trainer:309 |    Test  - Loss: 0.0257, Accuracy: 99.14%
+2025-09-20 03:29:04 |     INFO | trainer:310 |    🏆 Best Test Accuracy: 99.14% (Epoch 12)
+2025-09-20 03:29:04 |     INFO | trainer:270 | 🔄 Starting Epoch 13/20
+2025-09-20 03:29:04 |     INFO | trainer:271 | --------------------------------------------------
+2025-09-20 03:29:49 |     INFO | train:96 | 📈 Epoch 13 Training Results:
+2025-09-20 03:29:49 |     INFO | train:97 |    Loss: 0.0433
+2025-09-20 03:29:49 |     INFO | train:98 |    Accuracy: 98.61% (60000 samples)
+2025-09-20 03:29:49 |     INFO | train:99 |    Precision: 98.61%
+2025-09-20 03:29:49 |     INFO | train:100 |    Recall: 98.60%
+2025-09-20 03:29:49 |     INFO | train:101 |    F1-Score: 98.60%
+2025-09-20 03:29:49 |     INFO | train:102 |    LR: 0.000519
+2025-09-20 03:29:54 |     INFO | test:153 | 📊 Epoch 13 Test Results:
+2025-09-20 03:29:54 |     INFO | test:154 |    Loss: 0.0281
+2025-09-20 03:29:54 |     INFO | test:155 |    Accuracy: 99.03% (10000 samples)
+2025-09-20 03:29:54 |     INFO | test:156 |    Precision: 99.04%
+2025-09-20 03:29:54 |     INFO | test:157 |    Recall: 99.01%
+2025-09-20 03:29:54 |     INFO | test:158 |    F1-Score: 99.02%
+2025-09-20 03:29:54 |     INFO | trainer:291 | 📉 Learning rate updated: 0.000519 → 0.000410
+2025-09-20 03:29:54 |     INFO | trainer:306 | 📈 Epoch 13 Summary:
+2025-09-20 03:29:54 |     INFO | trainer:307 |    Duration: 49.96s
+2025-09-20 03:29:54 |     INFO | trainer:308 |    Train - Loss: 0.0433, Accuracy: 98.61%
+2025-09-20 03:29:54 |     INFO | trainer:309 |    Test  - Loss: 0.0281, Accuracy: 99.03%
+2025-09-20 03:29:54 |     INFO | trainer:310 |    🏆 Best Test Accuracy: 99.14% (Epoch 12)
+2025-09-20 03:29:54 |     INFO | trainer:270 | 🔄 Starting Epoch 14/20
+2025-09-20 03:29:54 |     INFO | trainer:271 | --------------------------------------------------
+2025-09-20 03:30:39 |     INFO | train:96 | 📈 Epoch 14 Training Results:
+2025-09-20 03:30:39 |     INFO | train:97 |    Loss: 0.0416
+2025-09-20 03:30:39 |     INFO | train:98 |    Accuracy: 98.74% (60000 samples)
+2025-09-20 03:30:39 |     INFO | train:99 |    Precision: 98.73%
+2025-09-20 03:30:39 |     INFO | train:100 |    Recall: 98.73%
+2025-09-20 03:30:39 |     INFO | train:101 |    F1-Score: 98.73%
+2025-09-20 03:30:39 |     INFO | train:102 |    LR: 0.000410
+2025-09-20 03:30:44 |     INFO | test:153 | 📊 Epoch 14 Test Results:
+2025-09-20 03:30:44 |     INFO | test:154 |    Loss: 0.0233
+2025-09-20 03:30:44 |     INFO | test:155 |    Accuracy: 99.19% (10000 samples)
+2025-09-20 03:30:44 |     INFO | test:156 |    Precision: 99.19%
+2025-09-20 03:30:44 |     INFO | test:157 |    Recall: 99.18%
+2025-09-20 03:30:44 |     INFO | test:158 |    F1-Score: 99.19%
+2025-09-20 03:30:44 |     INFO | trainer:291 | 📉 Learning rate updated: 0.000410 → 0.000310
+2025-09-20 03:30:44 |     INFO | trainer:300 | 🏆 New best model saved! Accuracy: 99.19%
+2025-09-20 03:30:44 |     INFO | trainer:306 | 📈 Epoch 14 Summary:
+2025-09-20 03:30:44 |     INFO | trainer:307 |    Duration: 50.28s
+2025-09-20 03:30:44 |     INFO | trainer:308 |    Train - Loss: 0.0416, Accuracy: 98.74%
+2025-09-20 03:30:44 |     INFO | trainer:309 |    Test  - Loss: 0.0233, Accuracy: 99.19%
+2025-09-20 03:30:44 |     INFO | trainer:310 |    🏆 Best Test Accuracy: 99.19% (Epoch 14)
+2025-09-20 03:30:44 |     INFO | trainer:270 | 🔄 Starting Epoch 15/20
+2025-09-20 03:30:44 |     INFO | trainer:271 | --------------------------------------------------
+2025-09-20 03:31:34 |     INFO | train:96 | 📈 Epoch 15 Training Results:
+2025-09-20 03:31:34 |     INFO | train:97 |    Loss: 0.0403
+2025-09-20 03:31:34 |     INFO | train:98 |    Accuracy: 98.68% (60000 samples)
+2025-09-20 03:31:34 |     INFO | train:99 |    Precision: 98.67%
+2025-09-20 03:31:34 |     INFO | train:100 |    Recall: 98.67%
+2025-09-20 03:31:34 |     INFO | train:101 |    F1-Score: 98.67%
+2025-09-20 03:31:34 |     INFO | train:102 |    LR: 0.000310
+2025-09-20 03:31:40 |     INFO | test:153 | 📊 Epoch 15 Test Results:
+2025-09-20 03:31:40 |     INFO | test:154 |    Loss: 0.0226
+2025-09-20 03:31:40 |     INFO | test:155 |    Accuracy: 99.21% (10000 samples)
+2025-09-20 03:31:40 |     INFO | test:156 |    Precision: 99.21%
+2025-09-20 03:31:40 |     INFO | test:157 |    Recall: 99.21%
+2025-09-20 03:31:40 |     INFO | test:158 |    F1-Score: 99.21%
+2025-09-20 03:31:40 |     INFO | trainer:291 | 📉 Learning rate updated: 0.000310 → 0.000221
+2025-09-20 03:31:40 |     INFO | trainer:300 | 🏆 New best model saved! Accuracy: 99.21%
+2025-09-20 03:31:40 |     INFO | trainer:306 | 📈 Epoch 15 Summary:
+2025-09-20 03:31:40 |     INFO | trainer:307 |    Duration: 56.34s
+2025-09-20 03:31:40 |     INFO | trainer:308 |    Train - Loss: 0.0403, Accuracy: 98.68%
+2025-09-20 03:31:40 |     INFO | trainer:309 |    Test  - Loss: 0.0226, Accuracy: 99.21%
+2025-09-20 03:31:40 |     INFO | trainer:310 |    🏆 Best Test Accuracy: 99.21% (Epoch 15)
+2025-09-20 03:31:40 |     INFO | trainer:270 | 🔄 Starting Epoch 16/20
+2025-09-20 03:31:40 |     INFO | trainer:271 | --------------------------------------------------
+2025-09-20 03:32:33 |     INFO | train:96 | 📈 Epoch 16 Training Results:
+2025-09-20 03:32:33 |     INFO | train:97 |    Loss: 0.0388
+2025-09-20 03:32:33 |     INFO | train:98 |    Accuracy: 98.77% (60000 samples)
+2025-09-20 03:32:33 |     INFO | train:99 |    Precision: 98.76%
+2025-09-20 03:32:33 |     INFO | train:100 |    Recall: 98.76%
+2025-09-20 03:32:33 |     INFO | train:101 |    F1-Score: 98.76%
+2025-09-20 03:32:33 |     INFO | train:102 |    LR: 0.000221
+2025-09-20 03:32:39 |     INFO | test:153 | 📊 Epoch 16 Test Results:
+2025-09-20 03:32:39 |     INFO | test:154 |    Loss: 0.0242
+2025-09-20 03:32:39 |     INFO | test:155 |    Accuracy: 99.18% (10000 samples)
+2025-09-20 03:32:39 |     INFO | test:156 |    Precision: 99.19%
+2025-09-20 03:32:39 |     INFO | test:157 |    Recall: 99.17%
+2025-09-20 03:32:39 |     INFO | test:158 |    F1-Score: 99.18%
+2025-09-20 03:32:39 |     INFO | trainer:291 | 📉 Learning rate updated: 0.000221 → 0.000144
+2025-09-20 03:32:39 |     INFO | trainer:306 | 📈 Epoch 16 Summary:
+2025-09-20 03:32:39 |     INFO | trainer:307 |    Duration: 58.26s
+2025-09-20 03:32:39 |     INFO | trainer:308 |    Train - Loss: 0.0388, Accuracy: 98.77%
+2025-09-20 03:32:39 |     INFO | trainer:309 |    Test  - Loss: 0.0242, Accuracy: 99.18%
+2025-09-20 03:32:39 |     INFO | trainer:310 |    🏆 Best Test Accuracy: 99.21% (Epoch 15)
+2025-09-20 03:32:39 |     INFO | trainer:270 | 🔄 Starting Epoch 17/20
+2025-09-20 03:32:39 |     INFO | trainer:271 | --------------------------------------------------
+2025-09-20 03:33:31 |     INFO | train:96 | 📈 Epoch 17 Training Results:
+2025-09-20 03:33:31 |     INFO | train:97 |    Loss: 0.0375
+2025-09-20 03:33:31 |     INFO | train:98 |    Accuracy: 98.80% (60000 samples)
+2025-09-20 03:33:31 |     INFO | train:99 |    Precision: 98.79%
+2025-09-20 03:33:31 |     INFO | train:100 |    Recall: 98.79%
+2025-09-20 03:33:31 |     INFO | train:101 |    F1-Score: 98.79%
+2025-09-20 03:33:31 |     INFO | train:102 |    LR: 0.000144
+2025-09-20 03:33:37 |     INFO | test:153 | 📊 Epoch 17 Test Results:
+2025-09-20 03:33:37 |     INFO | test:154 |    Loss: 0.0223
+2025-09-20 03:33:37 |     INFO | test:155 |    Accuracy: 99.24% (10000 samples)
+2025-09-20 03:33:37 |     INFO | test:156 |    Precision: 99.24%
+2025-09-20 03:33:37 |     INFO | test:157 |    Recall: 99.24%
+2025-09-20 03:33:37 |     INFO | test:158 |    F1-Score: 99.24%
+2025-09-20 03:33:37 |     INFO | trainer:291 | 📉 Learning rate updated: 0.000144 → 0.000083
+2025-09-20 03:33:37 |     INFO | trainer:300 | 🏆 New best model saved! Accuracy: 99.24%
+2025-09-20 03:33:37 |     INFO | trainer:306 | 📈 Epoch 17 Summary:
+2025-09-20 03:33:37 |     INFO | trainer:307 |    Duration: 58.38s
+2025-09-20 03:33:37 |     INFO | trainer:308 |    Train - Loss: 0.0375, Accuracy: 98.80%
+2025-09-20 03:33:37 |     INFO | trainer:309 |    Test  - Loss: 0.0223, Accuracy: 99.24%
+2025-09-20 03:33:37 |     INFO | trainer:310 |    🏆 Best Test Accuracy: 99.24% (Epoch 17)
+2025-09-20 03:33:37 |     INFO | trainer:270 | 🔄 Starting Epoch 18/20
+2025-09-20 03:33:37 |     INFO | trainer:271 | --------------------------------------------------
+2025-09-20 03:34:30 |     INFO | train:96 | 📈 Epoch 18 Training Results:
+2025-09-20 03:34:30 |     INFO | train:97 |    Loss: 0.0380
+2025-09-20 03:34:30 |     INFO | train:98 |    Accuracy: 98.82% (60000 samples)
+2025-09-20 03:34:30 |     INFO | train:99 |    Precision: 98.81%
+2025-09-20 03:34:30 |     INFO | train:100 |    Recall: 98.81%
+2025-09-20 03:34:30 |     INFO | train:101 |    F1-Score: 98.81%
+2025-09-20 03:34:30 |     INFO | train:102 |    LR: 0.000083
+2025-09-20 03:34:36 |     INFO | test:153 | 📊 Epoch 18 Test Results:
+2025-09-20 03:34:36 |     INFO | test:154 |    Loss: 0.0218
+2025-09-20 03:34:36 |     INFO | test:155 |    Accuracy: 99.29% (10000 samples)
+2025-09-20 03:34:36 |     INFO | test:156 |    Precision: 99.29%
+2025-09-20 03:34:36 |     INFO | test:157 |    Recall: 99.28%
+2025-09-20 03:34:36 |     INFO | test:158 |    F1-Score: 99.29%
+2025-09-20 03:34:36 |     INFO | trainer:291 | 📉 Learning rate updated: 0.000083 → 0.000038
+2025-09-20 03:34:36 |     INFO | trainer:300 | 🏆 New best model saved! Accuracy: 99.29%
+2025-09-20 03:34:36 |     INFO | trainer:306 | 📈 Epoch 18 Summary:
+2025-09-20 03:34:36 |     INFO | trainer:307 |    Duration: 58.92s
+2025-09-20 03:34:36 |     INFO | trainer:308 |    Train - Loss: 0.0380, Accuracy: 98.82%
+2025-09-20 03:34:36 |     INFO | trainer:309 |    Test  - Loss: 0.0218, Accuracy: 99.29%
+2025-09-20 03:34:36 |     INFO | trainer:310 |    🏆 Best Test Accuracy: 99.29% (Epoch 18)
+2025-09-20 03:34:36 |     INFO | trainer:270 | 🔄 Starting Epoch 19/20
+2025-09-20 03:34:36 |     INFO | trainer:271 | --------------------------------------------------
+2025-09-20 03:35:28 |     INFO | train:96 | 📈 Epoch 19 Training Results:
+2025-09-20 03:35:28 |     INFO | train:97 |    Loss: 0.0356
+2025-09-20 03:35:28 |     INFO | train:98 |    Accuracy: 98.87% (60000 samples)
+2025-09-20 03:35:28 |     INFO | train:99 |    Precision: 98.86%
+2025-09-20 03:35:28 |     INFO | train:100 |    Recall: 98.86%
+2025-09-20 03:35:28 |     INFO | train:101 |    F1-Score: 98.86%
+2025-09-20 03:35:28 |     INFO | train:102 |    LR: 0.000038
+2025-09-20 03:35:34 |     INFO | test:153 | 📊 Epoch 19 Test Results:
+2025-09-20 03:35:34 |     INFO | test:154 |    Loss: 0.0224
+2025-09-20 03:35:34 |     INFO | test:155 |    Accuracy: 99.19% (10000 samples)
+2025-09-20 03:35:34 |     INFO | test:156 |    Precision: 99.20%
+2025-09-20 03:35:34 |     INFO | test:157 |    Recall: 99.18%
+2025-09-20 03:35:34 |     INFO | test:158 |    F1-Score: 99.19%
+2025-09-20 03:35:34 |     INFO | trainer:291 | 📉 Learning rate updated: 0.000038 → 0.000010
+2025-09-20 03:35:34 |     INFO | trainer:306 | 📈 Epoch 19 Summary:
+2025-09-20 03:35:34 |     INFO | trainer:307 |    Duration: 58.36s
+2025-09-20 03:35:34 |     INFO | trainer:308 |    Train - Loss: 0.0356, Accuracy: 98.87%
+2025-09-20 03:35:34 |     INFO | trainer:309 |    Test  - Loss: 0.0224, Accuracy: 99.19%
+2025-09-20 03:35:34 |     INFO | trainer:310 |    🏆 Best Test Accuracy: 99.29% (Epoch 18)
+2025-09-20 03:35:34 |     INFO | trainer:270 | 🔄 Starting Epoch 20/20
+2025-09-20 03:35:34 |     INFO | trainer:271 | --------------------------------------------------
+2025-09-20 03:36:28 |     INFO | train:96 | 📈 Epoch 20 Training Results:
+2025-09-20 03:36:28 |     INFO | train:97 |    Loss: 0.0361
+2025-09-20 03:36:28 |     INFO | train:98 |    Accuracy: 98.85% (60000 samples)
+2025-09-20 03:36:28 |     INFO | train:99 |    Precision: 98.84%
+2025-09-20 03:36:28 |     INFO | train:100 |    Recall: 98.84%
+2025-09-20 03:36:28 |     INFO | train:101 |    F1-Score: 98.84%
+2025-09-20 03:36:28 |     INFO | train:102 |    LR: 0.000010
+2025-09-20 03:36:33 |     INFO | test:153 | 📊 Epoch 20 Test Results:
+2025-09-20 03:36:33 |     INFO | test:154 |    Loss: 0.0225
+2025-09-20 03:36:33 |     INFO | test:155 |    Accuracy: 99.18% (10000 samples)
+2025-09-20 03:36:33 |     INFO | test:156 |    Precision: 99.19%
+2025-09-20 03:36:33 |     INFO | test:157 |    Recall: 99.16%
+2025-09-20 03:36:33 |     INFO | test:158 |    F1-Score: 99.17%
+2025-09-20 03:36:33 |     INFO | trainer:291 | 📉 Learning rate updated: 0.000010 → 0.000001
+2025-09-20 03:36:33 |     INFO | trainer:306 | 📈 Epoch 20 Summary:
+2025-09-20 03:36:33 |     INFO | trainer:307 |    Duration: 59.28s
+2025-09-20 03:36:33 |     INFO | trainer:308 |    Train - Loss: 0.0361, Accuracy: 98.85%
+2025-09-20 03:36:33 |     INFO | trainer:309 |    Test  - Loss: 0.0225, Accuracy: 99.18%
+2025-09-20 03:36:33 |     INFO | trainer:310 |    🏆 Best Test Accuracy: 99.29% (Epoch 18)
+2025-09-20 03:36:34 |     INFO | evaluate_model:225 | 🔍 Epoch 20 Evaluation:
+2025-09-20 03:36:34 |     INFO | evaluate_model:226 |    Sample accuracy: 5/5 (100.0%)
+2025-09-20 03:36:34 |     INFO | evaluate_model:227 |    Predictions saved to: logs/mnist_fully_cnn_tiny4k_params_cosineannealinglr/predictions_epoch_20.png
+2025-09-20 03:36:34 |     INFO | trainer:320 | ================================================================================
+2025-09-20 03:36:34 |     INFO | trainer:321 | ✅ Training Complete!
+2025-09-20 03:36:34 |     INFO | trainer:322 | 🏆 Best Test Accuracy: 99.29% achieved at Epoch 18
+2025-09-20 03:36:34 |     INFO | trainer:323 | ⏱️ Total training time: 1137.60s (19.0min)
+2025-09-20 03:36:34 |     INFO | trainer:327 | 💾 Final model saved to: models/mnist_fully_cnn.pth
+2025-09-20 03:36:34 |     INFO | trainer:330 | 💾 Best model saved to: models/mnist_fully_cnn_best.pth
+2025-09-20 03:36:34 |     INFO | trainer:335 | 📊 Training plots saved to: logs/mnist_fully_cnn_tiny4k_params_cosineannealinglr/training_history.png
+2025-09-20 03:36:34 |     INFO | save_metrics_to_json:175 | 💾 Metrics saved to: logs/mnist_fully_cnn_tiny4k_params_cosineannealinglr/metrics.json
+2025-09-20 03:36:34 |     INFO | trainer:355 | 🎯 Experiment completed successfully!
+2025-09-20 03:36:34 |     INFO | trainer:356 | 📁 All results saved in: logs/mnist_fully_cnn_tiny4k_params_cosineannealinglr

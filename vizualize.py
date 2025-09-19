@@ -28,4 +28,4 @@ def plot_training_history(train_losses, test_losses, train_accuracies, test_accu
     
     plt.tight_layout()
     plt.savefig(save_path, dpi=150, bbox_inches='tight')
-    plt.show()
+    plt.close()

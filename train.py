@@ -1,7 +1,7 @@
-from config import device, model_path
+from config import device, logs_dir, model_path
 import torch
 from tqdm import tqdm
-from utils import GetCorrectPredCount, setup_logging, log_model_info, log_dataset_info, log_training_config, save_metrics_to_json, get_relative_path
+from utils import GetCorrectPredCount, log_model_info, log_dataset_info, log_training_config, save_metrics_to_json, get_relative_path
 from torch import nn
 import torch
 from torch.utils.data import DataLoader
@@ -21,7 +21,7 @@ test_losses = []
 test_accuracies = []
 
 def train(dataloader: DataLoader, model: nn.Module, loss_fn: nn.Module,
-        optimizer: torch.optim.Optimizer, epoch: int, logger) -> Tuple[float, float]:
+        optimizer: torch.optim.Optimizer, epoch: int, logger, scheduler=None) -> Tuple[float, float]:
     """
     training function
     """
@@ -49,6 +49,17 @@ def train(dataloader: DataLoader, model: nn.Module, loss_fn: nn.Module,
         # Backward pass
         loss.backward()
         optimizer.step()
+
+        # Step scheduler if it's OneCycleLR (step per batch)
+        # Step scheduler if it's OneCycleLR (step per batch)
+        if scheduler and isinstance(scheduler, torch.optim.lr_scheduler.OneCycleLR):
+            old_lr = optimizer.param_groups[0]['lr']
+            scheduler.step()
+            new_lr = optimizer.param_groups[0]['lr']
+            
+            # Log LR changes every 100 batches for debugging
+            if batch_idx % 100 == 0:
+                logger.info(f"   Batch {batch_idx}: LR changed from {old_lr:.6f} to {new_lr:.6f}")
 
          # Update metrics
         train_loss += loss.item()
@@ -229,15 +240,13 @@ def evaluate_model(model: nn.Module, test_loader: DataLoader, epoch: int,
             logger.debug(f"Sample {i+1}: True={true_label}, Pred={pred_label}, Conf={confidence:.3f}, Status={status}")
     print("-" * 60)
 
-def trainer(epochs: int, train_loader: DataLoader, test_loader: DataLoader, 
+def trainer(logger, epochs: int, train_loader: DataLoader, test_loader: DataLoader, 
            model: nn.Module, loss_fn: nn.Module, optimizer: torch.optim.Optimizer,
-           scheduler=None, evaluate_every: int = 5, experiment_name: str = None):
+           scheduler=None, evaluate_every: int = 20, experiment_name: str = None,
+           experiment_dir=logs_dir, experiment_start_time=None):
     """
     Trainer function
     """
-    # Setup logging
-    experiment_dir, experiment_start_time, logger = setup_logging(experiment_name)
-
     # Log all configuration info
     log_model_info(logger, model)
     log_dataset_info(logger, train_loader, test_loader)
@@ -267,10 +276,16 @@ def trainer(epochs: int, train_loader: DataLoader, test_loader: DataLoader,
         # Testing phase
         test_loss, test_acc = test(test_loader, model, loss_fn, epoch, logger)
 
-        # Update learning rate scheduler if provided
-        if scheduler:
+        # Update learning rate scheduler if provided (but NOT for OneCycleLR - it's already stepped per batch)
+        if scheduler and not isinstance(scheduler, torch.optim.lr_scheduler.OneCycleLR):
             old_lr = optimizer.param_groups[0]['lr']
-            scheduler.step()
+            
+            # ReduceLROnPlateau needs the metric to monitor
+            if isinstance(scheduler, torch.optim.lr_scheduler.ReduceLROnPlateau):
+                scheduler.step(test_acc)  # Pass test accuracy for monitoring
+            else:
+                scheduler.step()  # Other schedulers don't need metrics
+                
             new_lr = optimizer.param_groups[0]['lr']
             if old_lr != new_lr:
                 logger.info(f"📉 Learning rate updated: {old_lr:.6f} → {new_lr:.6f}")
@@ -331,6 +346,7 @@ def trainer(epochs: int, train_loader: DataLoader, test_loader: DataLoader,
         'total_duration_seconds': total_duration,
         'final_train_accuracy': train_accuracies[-1] if train_accuracies else 0,
         'final_test_accuracy': test_accuracies[-1] if test_accuracies else 0,
+        'final_lr': optimizer.param_groups[0]['lr']
     }
     
     # Save metrics to JSON
