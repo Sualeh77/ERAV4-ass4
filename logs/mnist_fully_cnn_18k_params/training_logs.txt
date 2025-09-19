@@ -1,0 +1,338 @@
+(train-deploy-mnist-cnn) (base) qureshsu@MAC-QNYQPC2R2T train_deploy_mnist_cnn % uv run main.py --epochs 20
+Project root: /Users/qureshsu/Learning/TSAI/ERAV4/session4/train_deploy_mnist_cnn/train_deploy_mnist_cnn
+==========================================================================================
+Layer (type:depth-idx)                   Output Shape              Param #
+==========================================================================================
+├─Sequential: 1-1                        [-1, 16, 14, 14]          --
+|    └─Conv2d: 2-1                       [-1, 8, 28, 28]           80
+|    └─ReLU: 2-2                         [-1, 8, 28, 28]           --
+|    └─BatchNorm2d: 2-3                  [-1, 8, 28, 28]           16
+|    └─Conv2d: 2-4                       [-1, 16, 28, 28]          1,168
+|    └─ReLU: 2-5                         [-1, 16, 28, 28]          --
+|    └─BatchNorm2d: 2-6                  [-1, 16, 28, 28]          32
+|    └─Dropout: 2-7                      [-1, 16, 28, 28]          --
+|    └─MaxPool2d: 2-8                    [-1, 16, 14, 14]          --
+├─Sequential: 1-2                        [-1, 32, 7, 7]            --
+|    └─Conv2d: 2-9                       [-1, 16, 14, 14]          2,320
+|    └─ReLU: 2-10                        [-1, 16, 14, 14]          --
+|    └─BatchNorm2d: 2-11                 [-1, 16, 14, 14]          32
+|    └─Conv2d: 2-12                      [-1, 32, 14, 14]          4,640
+|    └─ReLU: 2-13                        [-1, 32, 14, 14]          --
+|    └─BatchNorm2d: 2-14                 [-1, 32, 14, 14]          64
+|    └─Dropout: 2-15                     [-1, 32, 14, 14]          --
+|    └─MaxPool2d: 2-16                   [-1, 32, 7, 7]            --
+├─Sequential: 1-3                        [-1, 16, 7, 7]            --
+|    └─Conv2d: 2-17                      [-1, 32, 7, 7]            9,248
+|    └─ReLU: 2-18                        [-1, 32, 7, 7]            --
+|    └─BatchNorm2d: 2-19                 [-1, 32, 7, 7]            64
+|    └─Dropout: 2-20                     [-1, 32, 7, 7]            --
+|    └─Conv2d: 2-21                      [-1, 16, 7, 7]            528
+├─Sequential: 1-4                        [-1, 10, 1, 1]            --
+|    └─Conv2d: 2-22                      [-1, 10, 7, 7]            170
+|    └─AdaptiveAvgPool2d: 2-23           [-1, 10, 1, 1]            --
+==========================================================================================
+Total params: 18,362
+Trainable params: 18,362
+Non-trainable params: 0
+Total mult-adds (M): 2.82
+==========================================================================================
+Input size (MB): 0.00
+Forward/backward pass size (MB): 0.46
+Params size (MB): 0.07
+Estimated Total Size (MB): 0.54
+==========================================================================================
+🚀 Starting Training Process...
+📊 Dataset Info: Train batches: 938, Test batches: 157
+🔧 Model Parameters: 18,362
+⚙️  Device: cpu
+================================================================================
+
+🔄 Epoch 1/20
+--------------------------------------------------
+Epoch 1 [Train]: 100%|███████| 938/938 [01:13<00:00, 12.69it/s, Loss=0.2566, Avg_Loss=0.3677, Accuracy=89.55%, LR=0.001000]
+Epoch 1 [Test]: 100%|██████████████████████████████████████| 157/157 [00:03<00:00, 49.37it/s, Loss=0.0980, Accuracy=97.10%]
+
+📊 Test Results: Average Loss: 0.0980, Accuracy: 97.10% (9710/10000)
+
+📈 Epoch 1 Summary:
+   Train - Loss: 0.3677, Accuracy: 89.55%
+   Test  - Loss: 0.0980, Accuracy: 97.10%
+   🏆 Best Test Accuracy: 97.10% (Epoch 1)
+
+🔄 Epoch 2/20
+--------------------------------------------------
+Epoch 2 [Train]: 100%|███████| 938/938 [01:13<00:00, 12.84it/s, Loss=0.0447, Avg_Loss=0.0990, Accuracy=97.08%, LR=0.001000]
+Epoch 2 [Test]: 100%|██████████████████████████████████████| 157/157 [00:03<00:00, 49.51it/s, Loss=0.0628, Accuracy=98.04%]
+
+📊 Test Results: Average Loss: 0.0628, Accuracy: 98.04% (9804/10000)
+
+📈 Epoch 2 Summary:
+   Train - Loss: 0.0990, Accuracy: 97.08%
+   Test  - Loss: 0.0628, Accuracy: 98.04%
+   🏆 Best Test Accuracy: 98.04% (Epoch 2)
+
+🔄 Epoch 3/20
+--------------------------------------------------
+Epoch 3 [Train]: 100%|███████| 938/938 [01:12<00:00, 12.92it/s, Loss=0.0068, Avg_Loss=0.0728, Accuracy=97.81%, LR=0.001000]
+Epoch 3 [Test]: 100%|██████████████████████████████████████| 157/157 [00:03<00:00, 50.80it/s, Loss=0.0485, Accuracy=98.47%]
+
+📊 Test Results: Average Loss: 0.0485, Accuracy: 98.47% (9847/10000)
+
+📈 Epoch 3 Summary:
+   Train - Loss: 0.0728, Accuracy: 97.81%
+   Test  - Loss: 0.0485, Accuracy: 98.47%
+   🏆 Best Test Accuracy: 98.47% (Epoch 3)
+
+🔄 Epoch 4/20
+--------------------------------------------------
+Epoch 4 [Train]: 100%|███████| 938/938 [01:12<00:00, 12.92it/s, Loss=0.0473, Avg_Loss=0.0593, Accuracy=98.19%, LR=0.001000]
+Epoch 4 [Test]: 100%|██████████████████████████████████████| 157/157 [00:03<00:00, 49.28it/s, Loss=0.0289, Accuracy=99.07%]
+
+📊 Test Results: Average Loss: 0.0289, Accuracy: 99.07% (9907/10000)
+
+📈 Epoch 4 Summary:
+   Train - Loss: 0.0593, Accuracy: 98.19%
+   Test  - Loss: 0.0289, Accuracy: 99.07%
+   🏆 Best Test Accuracy: 99.07% (Epoch 4)
+
+🔄 Epoch 5/20
+--------------------------------------------------
+Epoch 5 [Train]: 100%|███████| 938/938 [01:12<00:00, 12.87it/s, Loss=0.0113, Avg_Loss=0.0538, Accuracy=98.37%, LR=0.001000]
+Epoch 5 [Test]: 100%|██████████████████████████████████████| 157/157 [00:03<00:00, 48.91it/s, Loss=0.0368, Accuracy=98.92%]
+
+📊 Test Results: Average Loss: 0.0368, Accuracy: 98.92% (9892/10000)
+
+📈 Epoch 5 Summary:
+   Train - Loss: 0.0538, Accuracy: 98.37%
+   Test  - Loss: 0.0368, Accuracy: 98.92%
+   🏆 Best Test Accuracy: 99.07% (Epoch 4)
+
+🔍 Evaluation at Epoch 5:
+🔍 Detailed Predictions (Epoch 5):
+------------------------------------------------------------
+Sample 1: True=7, Pred=7, Confidence=0.999 ✅ Correct
+Sample 2: True=2, Pred=2, Confidence=0.999 ✅ Correct
+Sample 3: True=1, Pred=1, Confidence=1.000 ✅ Correct
+Sample 4: True=0, Pred=0, Confidence=1.000 ✅ Correct
+Sample 5: True=4, Pred=4, Confidence=0.999 ✅ Correct
+------------------------------------------------------------
+
+🔄 Epoch 6/20
+--------------------------------------------------
+Epoch 6 [Train]: 100%|███████| 938/938 [01:14<00:00, 12.66it/s, Loss=0.0078, Avg_Loss=0.0466, Accuracy=98.54%, LR=0.001000]
+Epoch 6 [Test]: 100%|██████████████████████████████████████| 157/157 [00:03<00:00, 50.37it/s, Loss=0.0298, Accuracy=99.06%]
+
+📊 Test Results: Average Loss: 0.0298, Accuracy: 99.06% (9906/10000)
+
+📈 Epoch 6 Summary:
+   Train - Loss: 0.0466, Accuracy: 98.54%
+   Test  - Loss: 0.0298, Accuracy: 99.06%
+   🏆 Best Test Accuracy: 99.07% (Epoch 4)
+
+🔄 Epoch 7/20
+--------------------------------------------------
+Epoch 7 [Train]: 100%|███████| 938/938 [01:11<00:00, 13.04it/s, Loss=0.0130, Avg_Loss=0.0444, Accuracy=98.61%, LR=0.001000]
+Epoch 7 [Test]: 100%|██████████████████████████████████████| 157/157 [00:03<00:00, 50.16it/s, Loss=0.0324, Accuracy=99.05%]
+
+📊 Test Results: Average Loss: 0.0324, Accuracy: 99.05% (9905/10000)
+
+📈 Epoch 7 Summary:
+   Train - Loss: 0.0444, Accuracy: 98.61%
+   Test  - Loss: 0.0324, Accuracy: 99.05%
+   🏆 Best Test Accuracy: 99.07% (Epoch 4)
+
+🔄 Epoch 8/20
+--------------------------------------------------
+Epoch 8 [Train]: 100%|███████| 938/938 [01:12<00:00, 12.97it/s, Loss=0.0050, Avg_Loss=0.0416, Accuracy=98.66%, LR=0.001000]
+Epoch 8 [Test]: 100%|██████████████████████████████████████| 157/157 [00:03<00:00, 48.26it/s, Loss=0.0363, Accuracy=98.87%]
+
+📊 Test Results: Average Loss: 0.0363, Accuracy: 98.87% (9887/10000)
+
+📈 Epoch 8 Summary:
+   Train - Loss: 0.0416, Accuracy: 98.66%
+   Test  - Loss: 0.0363, Accuracy: 98.87%
+   🏆 Best Test Accuracy: 99.07% (Epoch 4)
+
+🔄 Epoch 9/20
+--------------------------------------------------
+Epoch 9 [Train]: 100%|███████| 938/938 [01:13<00:00, 12.68it/s, Loss=0.0056, Avg_Loss=0.0384, Accuracy=98.80%, LR=0.001000]
+Epoch 9 [Test]: 100%|██████████████████████████████████████| 157/157 [00:03<00:00, 50.54it/s, Loss=0.0240, Accuracy=99.24%]
+
+📊 Test Results: Average Loss: 0.0240, Accuracy: 99.24% (9924/10000)
+
+📈 Epoch 9 Summary:
+   Train - Loss: 0.0384, Accuracy: 98.80%
+   Test  - Loss: 0.0240, Accuracy: 99.24%
+   🏆 Best Test Accuracy: 99.24% (Epoch 9)
+
+🔄 Epoch 10/20
+--------------------------------------------------
+Epoch 10 [Train]: 100%|██████| 938/938 [01:13<00:00, 12.83it/s, Loss=0.0136, Avg_Loss=0.0358, Accuracy=98.89%, LR=0.001000]
+Epoch 10 [Test]: 100%|█████████████████████████████████████| 157/157 [00:03<00:00, 50.00it/s, Loss=0.0225, Accuracy=99.23%]
+
+📊 Test Results: Average Loss: 0.0225, Accuracy: 99.23% (9923/10000)
+
+📈 Epoch 10 Summary:
+   Train - Loss: 0.0358, Accuracy: 98.89%
+   Test  - Loss: 0.0225, Accuracy: 99.23%
+   🏆 Best Test Accuracy: 99.24% (Epoch 9)
+
+🔍 Evaluation at Epoch 10:
+🔍 Detailed Predictions (Epoch 10):
+------------------------------------------------------------
+Sample 1: True=7, Pred=7, Confidence=1.000 ✅ Correct
+Sample 2: True=2, Pred=2, Confidence=1.000 ✅ Correct
+Sample 3: True=1, Pred=1, Confidence=1.000 ✅ Correct
+Sample 4: True=0, Pred=0, Confidence=1.000 ✅ Correct
+Sample 5: True=4, Pred=4, Confidence=1.000 ✅ Correct
+------------------------------------------------------------
+
+🔄 Epoch 11/20
+--------------------------------------------------
+Epoch 11 [Train]: 100%|██████| 938/938 [01:16<00:00, 12.33it/s, Loss=0.0026, Avg_Loss=0.0341, Accuracy=98.97%, LR=0.001000]
+Epoch 11 [Test]: 100%|█████████████████████████████████████| 157/157 [00:03<00:00, 47.05it/s, Loss=0.0308, Accuracy=99.07%]
+
+📊 Test Results: Average Loss: 0.0308, Accuracy: 99.07% (9907/10000)
+
+📈 Epoch 11 Summary:
+   Train - Loss: 0.0341, Accuracy: 98.97%
+   Test  - Loss: 0.0308, Accuracy: 99.07%
+   🏆 Best Test Accuracy: 99.24% (Epoch 9)
+
+🔄 Epoch 12/20
+--------------------------------------------------
+Epoch 12 [Train]: 100%|██████| 938/938 [01:12<00:00, 12.95it/s, Loss=0.0177, Avg_Loss=0.0328, Accuracy=98.97%, LR=0.001000]
+Epoch 12 [Test]: 100%|█████████████████████████████████████| 157/157 [00:03<00:00, 50.28it/s, Loss=0.0213, Accuracy=99.31%]
+
+📊 Test Results: Average Loss: 0.0213, Accuracy: 99.31% (9931/10000)
+
+📈 Epoch 12 Summary:
+   Train - Loss: 0.0328, Accuracy: 98.97%
+   Test  - Loss: 0.0213, Accuracy: 99.31%
+   🏆 Best Test Accuracy: 99.31% (Epoch 12)
+
+🔄 Epoch 13/20
+--------------------------------------------------
+Epoch 13 [Train]: 100%|██████| 938/938 [01:13<00:00, 12.73it/s, Loss=0.0897, Avg_Loss=0.0316, Accuracy=99.00%, LR=0.001000]
+Epoch 13 [Test]: 100%|█████████████████████████████████████| 157/157 [00:03<00:00, 50.03it/s, Loss=0.0231, Accuracy=99.30%]
+
+📊 Test Results: Average Loss: 0.0231, Accuracy: 99.30% (9930/10000)
+
+📈 Epoch 13 Summary:
+   Train - Loss: 0.0316, Accuracy: 99.00%
+   Test  - Loss: 0.0231, Accuracy: 99.30%
+   🏆 Best Test Accuracy: 99.31% (Epoch 12)
+
+🔄 Epoch 14/20
+--------------------------------------------------
+Epoch 14 [Train]: 100%|██████| 938/938 [01:12<00:00, 12.87it/s, Loss=0.0195, Avg_Loss=0.0325, Accuracy=98.94%, LR=0.001000]
+Epoch 14 [Test]: 100%|█████████████████████████████████████| 157/157 [00:03<00:00, 50.48it/s, Loss=0.0232, Accuracy=99.27%]
+
+📊 Test Results: Average Loss: 0.0232, Accuracy: 99.27% (9927/10000)
+
+📈 Epoch 14 Summary:
+   Train - Loss: 0.0325, Accuracy: 98.94%
+   Test  - Loss: 0.0232, Accuracy: 99.27%
+   🏆 Best Test Accuracy: 99.31% (Epoch 12)
+
+🔄 Epoch 15/20
+--------------------------------------------------
+Epoch 15 [Train]: 100%|██████| 938/938 [01:13<00:00, 12.71it/s, Loss=0.0208, Avg_Loss=0.0292, Accuracy=99.05%, LR=0.001000]
+Epoch 15 [Test]: 100%|█████████████████████████████████████| 157/157 [00:03<00:00, 44.44it/s, Loss=0.0209, Accuracy=99.37%]
+
+📊 Test Results: Average Loss: 0.0209, Accuracy: 99.37% (9937/10000)
+
+📈 Epoch 15 Summary:
+   Train - Loss: 0.0292, Accuracy: 99.05%
+   Test  - Loss: 0.0209, Accuracy: 99.37%
+   🏆 Best Test Accuracy: 99.37% (Epoch 15)
+
+🔍 Evaluation at Epoch 15:
+🔍 Detailed Predictions (Epoch 15):
+------------------------------------------------------------
+Sample 1: True=7, Pred=7, Confidence=1.000 ✅ Correct
+Sample 2: True=2, Pred=2, Confidence=0.999 ✅ Correct
+Sample 3: True=1, Pred=1, Confidence=1.000 ✅ Correct
+Sample 4: True=0, Pred=0, Confidence=1.000 ✅ Correct
+Sample 5: True=4, Pred=4, Confidence=1.000 ✅ Correct
+------------------------------------------------------------
+
+🔄 Epoch 16/20
+--------------------------------------------------
+Epoch 16 [Train]: 100%|██████| 938/938 [01:15<00:00, 12.38it/s, Loss=0.1031, Avg_Loss=0.0294, Accuracy=99.06%, LR=0.001000]
+Epoch 16 [Test]: 100%|█████████████████████████████████████| 157/157 [00:03<00:00, 48.09it/s, Loss=0.0197, Accuracy=99.41%]
+
+📊 Test Results: Average Loss: 0.0197, Accuracy: 99.41% (9941/10000)
+
+📈 Epoch 16 Summary:
+   Train - Loss: 0.0294, Accuracy: 99.06%
+   Test  - Loss: 0.0197, Accuracy: 99.41%
+   🏆 Best Test Accuracy: 99.41% (Epoch 16)
+
+🔄 Epoch 17/20
+--------------------------------------------------
+Epoch 17 [Train]: 100%|██████| 938/938 [01:14<00:00, 12.63it/s, Loss=0.0990, Avg_Loss=0.0281, Accuracy=99.08%, LR=0.001000]
+Epoch 17 [Test]: 100%|█████████████████████████████████████| 157/157 [00:03<00:00, 49.80it/s, Loss=0.0162, Accuracy=99.48%]
+
+📊 Test Results: Average Loss: 0.0162, Accuracy: 99.48% (9948/10000)
+
+📈 Epoch 17 Summary:
+   Train - Loss: 0.0281, Accuracy: 99.08%
+   Test  - Loss: 0.0162, Accuracy: 99.48%
+   🏆 Best Test Accuracy: 99.48% (Epoch 17)
+
+🔄 Epoch 18/20
+--------------------------------------------------
+Epoch 18 [Train]: 100%|██████| 938/938 [01:12<00:00, 12.87it/s, Loss=0.0102, Avg_Loss=0.0263, Accuracy=99.19%, LR=0.001000]
+Epoch 18 [Test]: 100%|█████████████████████████████████████| 157/157 [00:03<00:00, 49.49it/s, Loss=0.0178, Accuracy=99.51%]
+
+📊 Test Results: Average Loss: 0.0178, Accuracy: 99.51% (9951/10000)
+
+📈 Epoch 18 Summary:
+   Train - Loss: 0.0263, Accuracy: 99.19%
+   Test  - Loss: 0.0178, Accuracy: 99.51%
+   🏆 Best Test Accuracy: 99.51% (Epoch 18)
+
+🔄 Epoch 19/20
+--------------------------------------------------
+Epoch 19 [Train]: 100%|██████| 938/938 [01:13<00:00, 12.80it/s, Loss=0.0092, Avg_Loss=0.0262, Accuracy=99.16%, LR=0.001000]
+Epoch 19 [Test]: 100%|█████████████████████████████████████| 157/157 [00:03<00:00, 49.92it/s, Loss=0.0235, Accuracy=99.29%]
+
+📊 Test Results: Average Loss: 0.0235, Accuracy: 99.29% (9929/10000)
+
+📈 Epoch 19 Summary:
+   Train - Loss: 0.0262, Accuracy: 99.16%
+   Test  - Loss: 0.0235, Accuracy: 99.29%
+   🏆 Best Test Accuracy: 99.51% (Epoch 18)
+
+🔄 Epoch 20/20
+--------------------------------------------------
+Epoch 20 [Train]: 100%|██████| 938/938 [01:11<00:00, 13.08it/s, Loss=0.0067, Avg_Loss=0.0252, Accuracy=99.20%, LR=0.001000]
+Epoch 20 [Test]: 100%|█████████████████████████████████████| 157/157 [00:03<00:00, 50.71it/s, Loss=0.0172, Accuracy=99.54%]
+
+📊 Test Results: Average Loss: 0.0172, Accuracy: 99.54% (9954/10000)
+
+📈 Epoch 20 Summary:
+   Train - Loss: 0.0252, Accuracy: 99.20%
+   Test  - Loss: 0.0172, Accuracy: 99.54%
+   🏆 Best Test Accuracy: 99.54% (Epoch 20)
+
+🔍 Evaluation at Epoch 20:
+🔍 Detailed Predictions (Epoch 20):
+------------------------------------------------------------
+Sample 1: True=7, Pred=7, Confidence=1.000 ✅ Correct
+Sample 2: True=2, Pred=2, Confidence=1.000 ✅ Correct
+Sample 3: True=1, Pred=1, Confidence=1.000 ✅ Correct
+Sample 4: True=0, Pred=0, Confidence=1.000 ✅ Correct
+Sample 5: True=4, Pred=4, Confidence=1.000 ✅ Correct
+------------------------------------------------------------
+
+================================================================================
+✅ Training Complete!
+🏆 Best Test Accuracy: 99.54% achieved at Epoch 20
+💾 Final model saved to: /Users/qureshsu/Learning/TSAI/ERAV4/session4/train_deploy_mnist_cnn/train_deploy_mnist_cnn/models/mnist_fully_cnn.pth
+💾 Best model saved to: /Users/qureshsu/Learning/TSAI/ERAV4/session4/train_deploy_mnist_cnn/train_deploy_mnist_cnn/models/mnist_fully_cnn_best.pth
+
+📊 Generating training plots...
+Final test accuracy: 99.54%
+(train-deploy-mnist-cnn) (base) qureshsu@MAC-QNYQPC2R2T train_deploy_mnist_cnn % 

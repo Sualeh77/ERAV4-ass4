@@ -10,6 +10,8 @@ models/
 mnist_images/
 cdk.out/
 
+*.png
+
 # Virtual environments
 .venv
 .DS_Store
